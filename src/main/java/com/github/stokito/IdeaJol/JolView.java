@@ -77,10 +77,10 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         setToolbar(toolbarPanel);
 
         cmbLayouter.addActionListener(e -> {
-            printLayout();
+            showLayoutForSelectedClass();
         });
         cmbDataModel.addActionListener(e -> {
-            printLayout();
+            showLayoutForSelectedClass();
         });
     }
 
@@ -93,23 +93,24 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         }
     }
 
-    public void setOutput(PsiClass psiClass) {
+    public void showLayoutForClass(PsiClass psiClass) {
         this.psiClass = psiClass;
         this.classData = PsiClassAdapter.createClassDataFromPsiClass(psiClass);
         lblClassName.setText(psiClass.getName());
-        printLayout();
+        showLayoutForSelectedClass();
     }
 
-    private Layouter getLayoter() {
+    private Layouter getSelectedLayoter() {
+        // we have 4 datamodels for each layouter. This can be replaced with two dimensional array but this more fun
         int layouterIndex = (4 * cmbLayouter.getSelectedIndex()) + cmbDataModel.getSelectedIndex();
         return layouters[layouterIndex];
     }
 
-    private void printLayout() {
+    private void showLayoutForSelectedClass() {
         if (classData == null) {
             return;
         }
-        Layouter layouter = getLayoter();
+        Layouter layouter = getSelectedLayoter();
         ClassLayout classLayout = layouter.layout(classData);
         String clazzLayout = classLayout.toPrintable();
         document.setText(clazzLayout);

@@ -26,7 +26,7 @@ public class ShowObjectLayoutAction extends AnAction {
         PsiClass psiClass = getSelectedPsiClass(event);
         assert psiClass != null;
         try {
-            JolView.getInstance(project).setOutput(psiClass);
+            JolView.getInstance(project).showLayoutForClass(psiClass);
             ToolWindowManager.getInstance(project).getToolWindow("JOL").activate(null);
         } catch (Exception ex) {
             LOG.error("Unable to generate layout", ex);
