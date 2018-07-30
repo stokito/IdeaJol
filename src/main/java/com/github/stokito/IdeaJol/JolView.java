@@ -10,6 +10,14 @@ import com.intellij.openapi.keymap.KeymapManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.SimpleToolWindowPanel;
 import com.intellij.openapi.wm.ToolWindowManager;
+import com.intellij.psi.PsiClass;
+import org.openjdk.jol.datamodel.X86_32_DataModel;
+import org.openjdk.jol.datamodel.X86_64_COOPS_DataModel;
+import org.openjdk.jol.datamodel.X86_64_DataModel;
+import org.openjdk.jol.info.ClassData;
+import org.openjdk.jol.info.ClassLayout;
+import org.openjdk.jol.layouters.HotSpotLayouter;
+import org.openjdk.jol.layouters.Layouter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -61,9 +69,30 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         }
     }
 
-    public void setOutput(String className, CharSequence output) {
-        labelClassName.setText(className);
+    public void setOutput(PsiClass psiClass) {
+        labelClassName.setText(psiClass.getName());
+        ClassData classData = PsiClassAdapter.createClassDataFromPsiClass(psiClass);
+        StringBuilder output = new StringBuilder(6 * 1024);
+
+        output.append("***** 32-bit VM: **********************************************************\n");
+        printLayout(classData, new HotSpotLayouter(new X86_32_DataModel()), output);
+
+        output.append("***** 64-bit VM: **********************************************************\n");
+        printLayout(classData, new HotSpotLayouter(new X86_64_DataModel()), output);
+
+        output.append("***** 64-bit VM, compressed references enabled: ***************************\n");
+        printLayout(classData, new HotSpotLayouter(new X86_64_COOPS_DataModel()), output);
+
+        output.append("***** 64-bit VM, compressed references enabled, 16-byte align: ************\n");
+        printLayout(classData, new HotSpotLayouter(new X86_64_COOPS_DataModel(16)), output);
+
         document.setText(output);
+    }
+
+    private void printLayout(ClassData classData, Layouter layouter, StringBuilder sb) {
+        ClassLayout classLayout = layouter.layout(classData);
+        String clazzLayout = classLayout.toPrintable();
+        sb.append(clazzLayout).append('\n');
     }
 
     public static JolView getInstance(Project project) {
