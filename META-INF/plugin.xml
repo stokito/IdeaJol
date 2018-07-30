@@ -1,0 +1,29 @@
+<idea-plugin url="https://github.com/stokito/IdeaJol">
+    <name>Java Object Layout</name>
+    <id>JOL</id>
+    <idea-version since-build="123.169"/>
+    <category>Tools</category>
+    <description>
+        <![CDATA[
+        <p>
+        <a href="http://openjdk.java.net/projects/code-tools/jol/">jol</a> is the tiny toolbox to analyze object layout schemes in JVMs.
+        These tools are using Unsafe, JVMTI, and Serviceability Agent (SA) heavily to decoder the actual object layout, footprint, and references.
+        This makes JOL much more accurate than other tools relying on heap dumps, specification assumptions, etc.
+        </p>
+    ]]>
+    </description>
+    <version>1.3.0</version>
+    <vendor email="stokito@gmail.com" url="https://stokito.name/">Sergey Ponomarev</vendor>
+    <actions>
+        <action id="showShowObjectLayout" class="com.github.stokito.IdeaJol.ShowObjectLayoutAction" text="Show Object Layout" description="Show JVM Object Layout of the current class">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+            <add-to-group group-id="CodeMenu" anchor="last"/>
+        </action>
+    </actions>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow id="JOL" anchor="right" icon="/ram-16x16.png" factoryClass="com.github.stokito.IdeaJol.JolToolWindowFactory"/>
+        <projectService serviceInterface="com.github.stokito.IdeaJol.JolView" serviceImplementation="com.github.stokito.IdeaJol.JolView"/>
+    </extensions>
+</idea-plugin>
