@@ -18,12 +18,27 @@ import org.openjdk.jol.info.ClassData;
 import org.openjdk.jol.info.ClassLayout;
 import org.openjdk.jol.layouters.HotSpotLayouter;
 import org.openjdk.jol.layouters.Layouter;
+import org.openjdk.jol.layouters.RawLayouter;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class JolView extends SimpleToolWindowPanel implements Disposable {
+    private static final int HOTSPOT_DEFAULT_FIELD_ALLOCATION_STYLE = 1;
+    private static final X86_32_DataModel MODEL_32 = new X86_32_DataModel();
+    private static final X86_64_DataModel MODEL_64 = new X86_64_DataModel();
+    private static final X86_64_COOPS_DataModel MODEL_64_COOPS = new X86_64_COOPS_DataModel();
+    private static final X86_64_COOPS_DataModel MODEL_64_COOPS_16 = new X86_64_COOPS_DataModel(16);
+    private static final Layouter[] layouters = {
+            new RawLayouter(MODEL_32),
+            new RawLayouter(MODEL_64),
+            new RawLayouter(MODEL_64_COOPS),
+            new RawLayouter(MODEL_64_COOPS_16),
+            new HotSpotLayouter(MODEL_32, false, false, false, true, HOTSPOT_DEFAULT_FIELD_ALLOCATION_STYLE),
+            new HotSpotLayouter(MODEL_64, false, false, false, true, HOTSPOT_DEFAULT_FIELD_ALLOCATION_STYLE),
+            new HotSpotLayouter(MODEL_64_COOPS, false, false, false, true, HOTSPOT_DEFAULT_FIELD_ALLOCATION_STYLE),
+            new HotSpotLayouter(MODEL_64_COOPS_16, false, false, false, true, HOTSPOT_DEFAULT_FIELD_ALLOCATION_STYLE)
+    };
+
     protected final Project project;
     protected final ToolWindowManager toolWindowManager;
     protected final KeymapManager keymapManager;
@@ -35,6 +50,8 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
     private JPanel toolbarPanel;
     private JComboBox cmbLayouter;
     private JComboBox cmbDataModel;
+    private PsiClass psiClass;
+    private ClassData classData;
 
     public JolView(final ToolWindowManager toolWindowManager, KeymapManager keymapManager, final Project project, final String fileExtension) {
         super(true, true);
@@ -58,6 +75,13 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         add(editorComponent);
 
         setToolbar(toolbarPanel);
+
+        cmbLayouter.addActionListener(e -> {
+            printLayout();
+        });
+        cmbDataModel.addActionListener(e -> {
+            printLayout();
+        });
     }
 
     @Override
@@ -70,29 +94,25 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
     }
 
     public void setOutput(PsiClass psiClass) {
+        this.psiClass = psiClass;
+        this.classData = PsiClassAdapter.createClassDataFromPsiClass(psiClass);
         lblClassName.setText(psiClass.getName());
-        ClassData classData = PsiClassAdapter.createClassDataFromPsiClass(psiClass);
-        StringBuilder output = new StringBuilder(6 * 1024);
-
-        output.append("***** 32-bit VM: **********************************************************\n");
-        printLayout(classData, new HotSpotLayouter(new X86_32_DataModel()), output);
-
-        output.append("***** 64-bit VM: **********************************************************\n");
-        printLayout(classData, new HotSpotLayouter(new X86_64_DataModel()), output);
-
-        output.append("***** 64-bit VM, compressed references enabled: ***************************\n");
-        printLayout(classData, new HotSpotLayouter(new X86_64_COOPS_DataModel()), output);
-
-        output.append("***** 64-bit VM, compressed references enabled, 16-byte align: ************\n");
-        printLayout(classData, new HotSpotLayouter(new X86_64_COOPS_DataModel(16)), output);
-
-        document.setText(output);
+        printLayout();
     }
 
-    private void printLayout(ClassData classData, Layouter layouter, StringBuilder sb) {
+    private Layouter getLayoter() {
+        int layouterIndex = (4 * cmbLayouter.getSelectedIndex()) + cmbDataModel.getSelectedIndex();
+        return layouters[layouterIndex];
+    }
+
+    private void printLayout() {
+        if (classData == null) {
+            return;
+        }
+        Layouter layouter = getLayoter();
         ClassLayout classLayout = layouter.layout(classData);
         String clazzLayout = classLayout.toPrintable();
-        sb.append(clazzLayout).append('\n');
+        document.setText(clazzLayout);
     }
 
     public static JolView getInstance(Project project) {
