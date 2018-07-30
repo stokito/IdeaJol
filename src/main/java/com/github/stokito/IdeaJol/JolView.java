@@ -20,7 +20,8 @@ import org.openjdk.jol.layouters.HotSpotLayouter;
 import org.openjdk.jol.layouters.Layouter;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class JolView extends SimpleToolWindowPanel implements Disposable {
     protected final Project project;
@@ -30,7 +31,10 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
 
     protected Editor editor;
     protected Document document;
-    private JLabel labelClassName;
+    private JLabel lblClassName;
+    private JPanel toolbarPanel;
+    private JComboBox cmbLayouter;
+    private JComboBox cmbDataModel;
 
     public JolView(final ToolWindowManager toolWindowManager, KeymapManager keymapManager, final Project project, final String fileExtension) {
         super(true, true);
@@ -53,10 +57,6 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         final JComponent editorComponent = editor.getComponent();
         add(editorComponent);
 
-        final JPanel toolbarPanel = new JPanel(new BorderLayout());
-        labelClassName = new JLabel("");
-        toolbarPanel.add(labelClassName, BorderLayout.CENTER);
-
         setToolbar(toolbarPanel);
     }
 
@@ -70,7 +70,7 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
     }
 
     public void setOutput(PsiClass psiClass) {
-        labelClassName.setText(psiClass.getName());
+        lblClassName.setText(psiClass.getName());
         ClassData classData = PsiClassAdapter.createClassDataFromPsiClass(psiClass);
         StringBuilder output = new StringBuilder(6 * 1024);
 
