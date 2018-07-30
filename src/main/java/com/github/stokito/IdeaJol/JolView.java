@@ -47,7 +47,7 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
     protected Editor editor;
     protected Document document;
     private JLabel lblClassName;
-    private JPanel toolbarPanel;
+    private JToolBar toolbarPanel;
     private JComboBox cmbLayouter;
     private JComboBox cmbDataModel;
     private PsiClass psiClass;
