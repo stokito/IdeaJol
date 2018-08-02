@@ -131,50 +131,31 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
      */
     @NotNull
     private ArrayList<Object[]> collectObjectLayouts() {
-        ArrayList<Object[]> objectLines = new ArrayList<>(classLayout.fields().size() + 4);
-
+        ArrayList<Object[]> objectLines = new ArrayList<>(classLayout.fields().size() + 8);
+        objectLines.add(new Object[]{0, classLayout.headerSize(), null, null, "(object header)"});
         long nextFree = classLayout.headerSize();
-
         long interLoss = 0;
         long exterLoss = 0;
         for (FieldLayout fieldLayout : classLayout.fields()) {
             if (fieldLayout.offset() > nextFree) {
                 long fieldLayoutSize = fieldLayout.offset() - nextFree;
-//                String nodeText = String.format(" %6d %5d %" + maxTypeLen + "s %-" + maxDescrLen + "s", nextFree, fieldLayoutSize, "", MSG_GAP);
-                objectLines.add(new Object[]{nextFree, fieldLayoutSize, "", "", MSG_GAP});
-
+                objectLines.add(new Object[]{nextFree, fieldLayoutSize, null, null, MSG_GAP});
                 interLoss += fieldLayoutSize;
             }
-
-/*
-            String nodeText = String.format(" %6d %5d %" + maxTypeLen + "s %-" + maxDescrLen + "s",
-                    fieldLayout.offset(),
-                    fieldLayout.size(),
-                    fieldLayout.typeClass(),
-                    fieldLayout.shortFieldName()
-            );
-*/
             objectLines.add(new Object[]{fieldLayout.offset(), fieldLayout.size(), fieldLayout.typeClass(), fieldLayout.classShortName(), fieldLayout.name()});
-
             nextFree = fieldLayout.offset() + fieldLayout.size();
         }
-
         long sizeOf = classLayout.instanceSize();
-
         if (sizeOf != nextFree) {
             exterLoss = sizeOf - nextFree;
-//            String nodeText = String.format(" %6d %5s %" + maxTypeLen + "s %s", nextFree, exterLoss, "", MSG_NEXT_GAP);
             objectLines.add(new Object[]{nextFree, exterLoss, null, null, MSG_NEXT_GAP});
         }
-
-//        appendNode(String.format("Instance size: %d bytes%n", sizeOf));
-        objectLines.add(new Object[]{null, null, null, "Instance size", sizeOf});
-
         long totalLoss = interLoss + exterLoss;
-//        appendNode(String.format("Space losses: %d bytes internal + %d bytes  = %d bytes total%n", interLoss, exterLoss, totalLoss));
-        objectLines.add(new Object[]{null, null, null, "Losses internal", interLoss});
-        objectLines.add(new Object[]{null, null, null, "Losses external", exterLoss});
-        objectLines.add(new Object[]{null, null, null, "Losses total", totalLoss});
+
+        objectLines.add(new Object[]{null, sizeOf, null, null, "Instance size"});
+        objectLines.add(new Object[]{null, interLoss, null, null, "Losses internal"});
+        objectLines.add(new Object[]{null, exterLoss, null, null, "Losses external"});
+        objectLines.add(new Object[]{null, totalLoss, null, null, "Losses total"});
         return objectLines;
     }
 
