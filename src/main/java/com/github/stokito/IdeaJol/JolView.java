@@ -7,22 +7,19 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.SimpleToolWindowPanel;
 import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.psi.PsiClass;
-import com.intellij.ui.components.JBScrollPane;
-import com.intellij.ui.table.JBTable;
 import org.jetbrains.annotations.NotNull;
 import org.openjdk.jol.datamodel.X86_32_DataModel;
 import org.openjdk.jol.datamodel.X86_64_COOPS_DataModel;
 import org.openjdk.jol.datamodel.X86_64_DataModel;
 import org.openjdk.jol.info.ClassData;
 import org.openjdk.jol.info.ClassLayout;
-import org.openjdk.jol.info.FieldData;
 import org.openjdk.jol.info.FieldLayout;
 import org.openjdk.jol.layouters.HotSpotLayouter;
 import org.openjdk.jol.layouters.Layouter;
 import org.openjdk.jol.layouters.RawLayouter;
 
-import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
@@ -50,16 +47,12 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
     protected final ToolWindowManager toolWindowManager;
     protected final KeymapManager keymapManager;
 
-    private JLabel lblClassName;
-    private JToolBar toolbarPanel;
-    private JComboBox cmbLayouter;
-    private JComboBox cmbDataModel;
-    private JBTable tblObjectLayout;
     private PsiClass psiClass;
     private ClassData classData;
     private ClassLayout classLayout;
     private static final String MSG_GAP = "(alignment/padding gap)";
     private static final String MSG_NEXT_GAP = "(loss due to the next object alignment)";
+    private final JolForm jolForm = new JolForm();
 
     public JolView(final ToolWindowManager toolWindowManager, KeymapManager keymapManager, final Project project) {
         super(true, true);
@@ -70,22 +63,19 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
     }
 
     private void setupUI() {
-        setToolbar(toolbarPanel);
-        tblObjectLayout = new JBTable();
-        tblObjectLayout.getEmptyText().setText("Select a class then press Code / Show Object Layout");
-        tblObjectLayout.setFillsViewportHeight(true);
-        tblObjectLayout.setSelectionMode(SINGLE_SELECTION);
-        tblObjectLayout.setRowSelectionAllowed(true);
-        //Create the scroll pane and add the table to it. Add the scroll pane to this ToolWindowPanel.
-        add(new JBScrollPane(tblObjectLayout));
-        tblObjectLayout.getSelectionModel().addListSelectionListener(e -> {
+//        super(new BorderLayout());
+        add(jolForm.rootPanel, BorderLayout.CENTER);
+//        setToolbar(toolbarPanel);
+        jolForm.tblObjectLayout.getEmptyText().setText("Select a class then press Code / Show Object Layout");
+        jolForm.tblObjectLayout.setSelectionMode(SINGLE_SELECTION);
+        jolForm.tblObjectLayout.setRowSelectionAllowed(true);
+        jolForm.tblObjectLayout.getSelectionModel().addListSelectionListener(e -> {
             System.out.println("selected " + e.getFirstIndex());
-            /*TODO navigate to PSI class in editor */
+            //TODO navigate to PSI class in editor
         });
 
-
-        cmbLayouter.addActionListener(this::layoutOptionsActionPerformed);
-        cmbDataModel.addActionListener(this::layoutOptionsActionPerformed);
+        jolForm.cmbLayouter.addActionListener(this::layoutOptionsActionPerformed);
+        jolForm.cmbDataModel.addActionListener(this::layoutOptionsActionPerformed);
     }
 
     @Override
@@ -95,13 +85,13 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
     public void showLayoutForClass(PsiClass psiClass) {
         this.psiClass = psiClass;
         this.classData = PsiClassAdapter.createClassDataFromPsiClass(psiClass);
-        lblClassName.setText(psiClass.getName());
+        jolForm.lblClassName.setText(psiClass.getName());
         showLayoutForSelectedClass();
     }
 
     private Layouter getSelectedLayoter() {
         // we have 4 datamodels for each layouter. This can be replaced with two dimensional array but this more fun
-        int layouterIndex = (4 * cmbLayouter.getSelectedIndex()) + cmbDataModel.getSelectedIndex();
+        int layouterIndex = (4 * jolForm.cmbLayouter.getSelectedIndex()) + jolForm.cmbDataModel.getSelectedIndex();
         return layouters[layouterIndex];
     }
 
@@ -117,12 +107,12 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
 
         Object[][] rows = objectLines.toArray(new Object[0][0]);
         DefaultTableModel model = new DefaultTableModel(rows, COLUMNS);
-        tblObjectLayout.setModel(model);
+        jolForm.tblObjectLayout.setModel(model);
 /*TODO configure width of columns
         tblObjectLayout.getColumnModel().getColumn(0).setWidth(60);
         tblObjectLayout.getColumnModel().getColumn(1).setWidth(50);
         tblObjectLayout.getColumnModel().getColumn(2).setPreferredWidth(250);*/
-        tblObjectLayout.repaint();
+        jolForm.tblObjectLayout.repaint();
     }
 
     /**
@@ -152,10 +142,10 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         }
         long totalLoss = interLoss + exterLoss;
 
-        objectLines.add(new Object[]{null, sizeOf, null, null, "Instance size"});
-        objectLines.add(new Object[]{null, interLoss, null, null, "Losses internal"});
-        objectLines.add(new Object[]{null, exterLoss, null, null, "Losses external"});
-        objectLines.add(new Object[]{null, totalLoss, null, null, "Losses total"});
+        jolForm.lblInstanceSize.setText(Long.toString(totalLoss));
+        jolForm.lblLossesInternal.setText(Long.toString(totalLoss));
+        jolForm.lblLossesExternal.setText(Long.toString(totalLoss));
+        jolForm.lblLossesTotal.setText(Long.toString(totalLoss));
         return objectLines;
     }
 
