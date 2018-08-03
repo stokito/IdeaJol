@@ -9,6 +9,7 @@ import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiField;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.openjdk.jol.datamodel.X86_32_DataModel;
 import org.openjdk.jol.datamodel.X86_64_COOPS_DataModel;
 import org.openjdk.jol.datamodel.X86_64_DataModel;
@@ -158,15 +159,30 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
     private void navigateToFieldInEditor(ListSelectionEvent e) {
         int fieldIndex = e.getFirstIndex();
         int fieldIndexLst = e.getLastIndex();
-        String typeName = (String) jolForm.tblObjectLayout.getModel().getValueAt(fieldIndex, 2);
+        String className = (String) jolForm.tblObjectLayout.getModel().getValueAt(fieldIndex, 3);
         String fieldName = (String) jolForm.tblObjectLayout.getModel().getValueAt(fieldIndex, 4);
-        System.out.println("selected " + fieldIndex + " " + fieldIndexLst + " " + typeName + " " + fieldName);
-        if (fieldName != null) {
-            PsiField psiField = psiClass.findFieldByName(fieldName, true);
-            if (psiField != null) {
-                psiField.navigate(true);
+        System.out.println("selected " + fieldIndex + " " + fieldIndexLst + " " + className + " " + fieldName);
+        PsiField psiField = findField(className, fieldName);
+        if (psiField != null) {
+            psiField.navigate(true);
+        }
+    }
+
+    @Nullable
+    private PsiField findField(String className, String fieldName) {
+        if (fieldName == null) {
+            return null;
+        }
+        for (PsiField field : psiClass.getAllFields()) {
+            PsiClass parentClass = (PsiClass) field.getParent();
+            String parentClassName = parentClass.getName();
+            assert parentClassName != null;
+            assert field.getName() != null;
+            if (parentClassName.equals(className) && field.getName().equals(fieldName)) {
+                return field;
             }
         }
+        return null;
     }
 
     private void layoutOptionsActionPerformed(ActionEvent e) {
