@@ -159,6 +159,8 @@
               <component id="535a4" class="com.intellij.ui.table.JBTable" binding="tblObjectLayout">
                 <constraints/>
                 <properties>
+                  <cellSelectionEnabled value="false"/>
+                  <rowSelectionAllowed value="true"/>
                   <showHorizontalLines value="true"/>
                   <showVerticalLines value="false"/>
                 </properties>

@@ -7,6 +7,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.SimpleToolWindowPanel;
 import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiField;
 import org.jetbrains.annotations.NotNull;
 import org.openjdk.jol.datamodel.X86_32_DataModel;
 import org.openjdk.jol.datamodel.X86_64_COOPS_DataModel;
@@ -18,9 +19,12 @@ import org.openjdk.jol.layouters.HotSpotLayouter;
 import org.openjdk.jol.layouters.Layouter;
 import org.openjdk.jol.layouters.RawLayouter;
 
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import static javax.swing.ListSelectionModel.SINGLE_SELECTION;
@@ -63,17 +67,12 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
     }
 
     private void setupUI() {
-//        super(new BorderLayout());
         add(jolForm.rootPanel, BorderLayout.CENTER);
-//        setToolbar(toolbarPanel);
         jolForm.tblObjectLayout.getEmptyText().setText("Select a class then press Code / Show Object Layout");
+        jolForm.tblObjectLayout.setDefaultEditor(Object.class, null);
         jolForm.tblObjectLayout.setSelectionMode(SINGLE_SELECTION);
-        jolForm.tblObjectLayout.setRowSelectionAllowed(true);
-        jolForm.tblObjectLayout.getSelectionModel().addListSelectionListener(e -> {
-            System.out.println("selected " + e.getFirstIndex());
-            //TODO navigate to PSI class in editor
-        });
-
+        jolForm.tblObjectLayout.getSelectionModel().addListSelectionListener(this::navigateToFieldInEditor);
+        jolForm.lblClassName.addMouseListener(navigateToClassInEditor());
         jolForm.cmbLayouter.addActionListener(this::layoutOptionsActionPerformed);
         jolForm.cmbDataModel.addActionListener(this::layoutOptionsActionPerformed);
     }
@@ -90,6 +89,7 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         showLayoutForSelectedClass();
     }
 
+    @NotNull
     private Layouter getSelectedLayoter() {
         // we have 4 datamodels for each layouter. This can be replaced with two dimensional array but this more fun
         int layouterIndex = (4 * jolForm.cmbLayouter.getSelectedIndex()) + jolForm.cmbDataModel.getSelectedIndex();
@@ -102,7 +102,6 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         }
         Layouter layouter = getSelectedLayoter();
         classLayout = layouter.layout(classData);
-//        String clazzLayout = classLayout.toPrintable();
 
         ArrayList<Object[]> objectLines = collectObjectLayouts();
 
@@ -143,6 +142,31 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         jolForm.lblLossesExternal.setText(Long.toString(exterLoss));
         jolForm.lblLossesTotal.setText(Long.toString(totalLoss));
         return objectLines;
+    }
+
+    @NotNull
+    private MouseAdapter navigateToClassInEditor() {
+        return new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                psiClass.navigate(true);
+            }
+        };
+    }
+
+    //FIXME
+    private void navigateToFieldInEditor(ListSelectionEvent e) {
+        int fieldIndex = e.getFirstIndex();
+        int fieldIndexLst = e.getLastIndex();
+        String typeName = (String) jolForm.tblObjectLayout.getModel().getValueAt(fieldIndex, 2);
+        String fieldName = (String) jolForm.tblObjectLayout.getModel().getValueAt(fieldIndex, 4);
+        System.out.println("selected " + fieldIndex + " " + fieldIndexLst + " " + typeName + " " + fieldName);
+        if (fieldName != null) {
+            PsiField psiField = psiClass.findFieldByName(fieldName, true);
+            if (psiField != null) {
+                psiField.navigate(true);
+            }
+        }
     }
 
     private void layoutOptionsActionPerformed(ActionEvent e) {
