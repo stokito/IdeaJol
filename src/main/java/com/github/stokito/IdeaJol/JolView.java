@@ -86,6 +86,7 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         this.psiClass = psiClass;
         this.classData = PsiClassAdapter.createClassDataFromPsiClass(psiClass);
         jolForm.lblClassName.setText(psiClass.getName());
+        jolForm.lblClassName.setIcon(psiClass.getIcon(0));
         showLayoutForSelectedClass();
     }
 
@@ -108,11 +109,6 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         Object[][] rows = objectLines.toArray(new Object[0][0]);
         DefaultTableModel model = new DefaultTableModel(rows, COLUMNS);
         jolForm.tblObjectLayout.setModel(model);
-/*TODO configure width of columns
-        tblObjectLayout.getColumnModel().getColumn(0).setWidth(60);
-        tblObjectLayout.getColumnModel().getColumn(1).setWidth(50);
-        tblObjectLayout.getColumnModel().getColumn(2).setPreferredWidth(250);*/
-        jolForm.tblObjectLayout.repaint();
     }
 
     /**
@@ -142,9 +138,9 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         }
         long totalLoss = interLoss + exterLoss;
 
-        jolForm.lblInstanceSize.setText(Long.toString(totalLoss));
-        jolForm.lblLossesInternal.setText(Long.toString(totalLoss));
-        jolForm.lblLossesExternal.setText(Long.toString(totalLoss));
+        jolForm.lblInstanceSize.setText(Long.toString(sizeOf));
+        jolForm.lblLossesInternal.setText(Long.toString(interLoss));
+        jolForm.lblLossesExternal.setText(Long.toString(exterLoss));
         jolForm.lblLossesTotal.setText(Long.toString(totalLoss));
         return objectLines;
     }
