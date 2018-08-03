@@ -155,13 +155,14 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         };
     }
 
-    //FIXME
     private void navigateToFieldInEditor(ListSelectionEvent e) {
-        int fieldIndex = e.getFirstIndex();
-        int fieldIndexLst = e.getLastIndex();
+        int fieldIndex = jolForm.tblObjectLayout.getSelectionModel().getLeadSelectionIndex();
+        // on reset of model the selected index can be more than new count of rows
+        if (fieldIndex == -1 || jolForm.tblObjectLayout.getModel().getRowCount() > fieldIndex) {
+            return;
+        }
         String className = (String) jolForm.tblObjectLayout.getModel().getValueAt(fieldIndex, 3);
         String fieldName = (String) jolForm.tblObjectLayout.getModel().getValueAt(fieldIndex, 4);
-        System.out.println("selected " + fieldIndex + " " + fieldIndexLst + " " + className + " " + fieldName);
         PsiField psiField = findField(className, fieldName);
         if (psiField != null) {
             psiField.navigate(true);
