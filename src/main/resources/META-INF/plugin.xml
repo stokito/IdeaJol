@@ -1,7 +1,8 @@
 <idea-plugin url="https://github.com/stokito/IdeaJol">
     <name>Java Object Layout</name>
     <id>JOL</id>
-    <idea-version since-build="123.169"/>
+    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="182.0"/>
     <category>Tools</category>
     <description>
         <![CDATA[
@@ -12,8 +13,14 @@
         </p>
     ]]>
     </description>
-    <version>1.3.0</version>
-    <vendor email="stokito@gmail.com" url="https://stokito.name/">Sergey Ponomarev</vendor>
+    <change-notes><![CDATA[
+      v1.5.0 show layout in table instead of raw text.<br>
+      v1.3.0 first published version.<br>
+    ]]>
+    </change-notes>
+    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html on how to target different products -->
+    <version>1.5.0</version>
+    <vendor email="stokito@gmail.com" url="https://stokito.com/">Sergey Ponomarev</vendor>
     <depends>com.intellij.modules.java</depends>
     <actions>
         <action id="showShowObjectLayout" class="com.github.stokito.IdeaJol.ShowObjectLayoutAction" text="Show Object Layout" description="Show JVM Object Layout of the current class">
