@@ -1,12 +1,13 @@
 package com.github.stokito.IdeaJol;
 
 import javax.swing.table.AbstractTableModel;
+import java.util.List;
 
 class FieldLayoutTableModel extends AbstractTableModel {
     private static final String[] COLUMNS = {"Offset", "Size", "Type", "Class", "Field"};
-    private final Object[][] layouts;
+    private final List<Object[]> layouts;
 
-    public FieldLayoutTableModel(Object[][] layouts) {
+    public FieldLayoutTableModel(List<Object[]> layouts) {
         this.layouts = layouts;
     }
 
@@ -15,11 +16,11 @@ class FieldLayoutTableModel extends AbstractTableModel {
     }
 
     public int getRowCount() {
-        return layouts.length;
+        return layouts.size();
     }
 
     public Object getValueAt(int row, int col) {
-        return layouts[row][col];
+        return layouts.get(row)[col];
     }
 
     public String getColumnName(int column) {
@@ -35,6 +36,4 @@ class FieldLayoutTableModel extends AbstractTableModel {
         }
         return Object.class;
     }
-
-
 }
