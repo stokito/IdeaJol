@@ -78,7 +78,6 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
     private void setupUI() {
         add(jolForm.rootPanel, BorderLayout.CENTER);
         jolForm.tblObjectLayout.getEmptyText().setText("Select a class then press Code / Show Object Layout");
-        jolForm.tblObjectLayout.setDefaultEditor(Object.class, null);
         jolForm.tblObjectLayout.setSelectionMode(SINGLE_SELECTION);
         jolForm.tblObjectLayout.getSelectionModel().addListSelectionListener(this::navigateToFieldInEditor);
         jolForm.lblClassName.addMouseListener(navigateToClassInEditor());
@@ -111,9 +110,9 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         Layouter layouter = getSelectedLayoter();
         ClassData classData = PsiClassAdapter.createClassDataFromPsiClass(psiClass);
         ClassLayout classLayout = layouter.layout(classData);
-        ArrayList<Object[]> objectLines = collectObjectLayouts(classLayout);
+        ArrayList<FieldLayout> objectLayouts = collectObjectLayouts(classLayout);
 
-        TableModel model = new FieldLayoutTableModel(objectLines);
+        TableModel model = new FieldLayoutTableModel(objectLayouts);
         jolForm.tblObjectLayout.setModel(model);
         TableColumnModel columnModel = jolForm.tblObjectLayout.getColumnModel();
         columnModel.getColumn(0).setMaxWidth(50);
@@ -127,25 +126,25 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
      * TODO: This should be already done in classLayout so we shouldn't make any calculations
      */
     @NotNull
-    private ArrayList<Object[]> collectObjectLayouts(ClassLayout classLayout) {
-        ArrayList<Object[]> objectLines = new ArrayList<>(classLayout.fields().size() + 8);
-        objectLines.add(new Object[]{0, classLayout.headerSize(), null, null, "(object header)"});
+    private ArrayList<FieldLayout> collectObjectLayouts(ClassLayout classLayout) {
+        ArrayList<FieldLayout> objectLines = new ArrayList<>(classLayout.fields().size() + 8);
+        objectLines.add(new FieldLayoutPadding(0, classLayout.headerSize(), "(object header)"));
         long nextFree = classLayout.headerSize();
         long interLoss = 0;
         long exterLoss = 0;
         for (FieldLayout fieldLayout : classLayout.fields()) {
             if (fieldLayout.offset() > nextFree) {
                 long fieldLayoutSize = fieldLayout.offset() - nextFree;
-                objectLines.add(new Object[]{nextFree, fieldLayoutSize, null, null, MSG_GAP});
+                objectLines.add(new FieldLayoutPadding(nextFree, fieldLayoutSize, MSG_GAP));
                 interLoss += fieldLayoutSize;
             }
-            objectLines.add(new Object[]{fieldLayout.offset(), fieldLayout.size(), fieldLayout.typeClass(), fieldLayout.classShortName(), fieldLayout.name()});
+            objectLines.add(fieldLayout);
             nextFree = fieldLayout.offset() + fieldLayout.size();
         }
         long sizeOf = classLayout.instanceSize();
         if (sizeOf != nextFree) {
             exterLoss = sizeOf - nextFree;
-            objectLines.add(new Object[]{nextFree, exterLoss, null, null, MSG_NEXT_GAP});
+            objectLines.add(new FieldLayoutPadding(nextFree, exterLoss, MSG_NEXT_GAP));
         }
         long totalLoss = interLoss + exterLoss;
 
