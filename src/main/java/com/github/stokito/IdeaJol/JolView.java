@@ -8,6 +8,8 @@ import com.intellij.openapi.ui.SimpleToolWindowPanel;
 import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiField;
+import com.intellij.psi.SmartPointerManager;
+import com.intellij.psi.SmartPsiElementPointer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.openjdk.jol.datamodel.X86_32_DataModel;
@@ -26,8 +28,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.font.TextAttribute;
 import java.util.ArrayList;
+import java.util.Map;
 
+import static java.awt.font.TextAttribute.STRIKETHROUGH;
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 import static javax.swing.ListSelectionModel.SINGLE_SELECTION;
 
 public class JolView extends SimpleToolWindowPanel implements Disposable {
@@ -52,7 +59,7 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
     protected final ToolWindowManager toolWindowManager;
     protected final KeymapManager keymapManager;
 
-    private PsiClass psiClass;
+    private SmartPsiElementPointer<PsiClass> psiClass;
     private ClassData classData;
     private ClassLayout classLayout;
     private static final String MSG_GAP = "(alignment/padding gap)";
@@ -83,8 +90,9 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
     }
 
     public void showLayoutForClass(PsiClass psiClass) {
-        this.psiClass = psiClass;
+        this.psiClass =  SmartPointerManager.getInstance(project).createSmartPsiElementPointer(psiClass);
         this.classData = PsiClassAdapter.createClassDataFromPsiClass(psiClass);
+        classLabelFontStrike(FALSE);
         jolForm.lblClassName.setText(psiClass.getName());
         jolForm.lblClassName.setIcon(psiClass.getIcon(0));
         showLayoutForSelectedClass();
@@ -150,7 +158,10 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         return new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                psiClass.navigate(true);
+                PsiClass psiClassElement = getPsiClass();
+                if (psiClassElement != null) {
+                    psiClassElement.navigate(true);
+                }
             }
         };
     }
@@ -158,7 +169,7 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
     private void navigateToFieldInEditor(ListSelectionEvent e) {
         int fieldIndex = jolForm.tblObjectLayout.getSelectionModel().getLeadSelectionIndex();
         // on reset of model the selected index can be more than new count of rows
-        if (fieldIndex == -1 || jolForm.tblObjectLayout.getModel().getRowCount() > fieldIndex) {
+        if (fieldIndex == -1 || fieldIndex > jolForm.tblObjectLayout.getModel().getRowCount() - 1) {
             return;
         }
         String className = (String) jolForm.tblObjectLayout.getModel().getValueAt(fieldIndex, 3);
@@ -174,7 +185,11 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         if (fieldName == null) {
             return null;
         }
-        for (PsiField field : psiClass.getAllFields()) {
+        PsiClass psiClassElement = getPsiClass();
+        if (psiClassElement == null) {
+            return null;
+        }
+        for (PsiField field : psiClassElement.getAllFields()) {
             PsiClass parentClass = (PsiClass) field.getParent();
             String parentClassName = parentClass.getName();
             assert parentClassName != null;
@@ -188,6 +203,24 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
 
     private void layoutOptionsActionPerformed(ActionEvent e) {
         showLayoutForSelectedClass();
+    }
+
+    @Nullable
+    private PsiClass getPsiClass() {
+        PsiClass psiClassElement = psiClass != null ? psiClass.getElement() : null;
+        if (psiClassElement == null) {
+            classLabelFontStrike(TRUE);
+            psiClass = null;
+        }
+        return psiClassElement;
+    }
+
+    private void classLabelFontStrike(Boolean strikethroughOn) {
+        @SuppressWarnings("unchecked")
+        Map<TextAttribute, Object> fontAttributes = (Map<TextAttribute, Object>) jolForm.lblClassName.getFont().getAttributes();
+        fontAttributes.put(STRIKETHROUGH, strikethroughOn);
+        Font strikedFont = new Font(fontAttributes);
+        jolForm.lblClassName.setFont(strikedFont);
     }
 
     public static JolView getInstance(Project project) {
