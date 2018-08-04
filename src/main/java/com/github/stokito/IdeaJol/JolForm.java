@@ -19,4 +19,5 @@ class JolForm {
     JLabel lblLossesExternal;
     JLabel lblLossesTotal;
     JBScrollPane objectLayoutScrollPane;
+    JButton copyButton;
 }

@@ -23,9 +23,14 @@
     <vendor email="stokito@gmail.com" url="https://stokito.com/">Sergey Ponomarev</vendor>
     <depends>com.intellij.modules.java</depends>
     <actions>
-        <action id="showShowObjectLayout" class="com.github.stokito.IdeaJol.ShowObjectLayoutAction" text="Show Object Layout" description="Show JVM Object Layout of the current class">
+        <action id="showObjectLayout" class="com.github.stokito.IdeaJol.ShowObjectLayoutAction" text="Show Object Layout" description="Show JVM Object Layout of the current class">
             <add-to-group group-id="EditorPopupMenu" anchor="last"/>
             <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+            <add-to-group group-id="CodeMenu" anchor="last"/>
+        </action>
+        <action id="copyObjectLayout" class="com.github.stokito.IdeaJol.CopyObjectLayoutAction" text="Copy Object Layout" description="Copy to clipboard JVM Object Layout of the current class">
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+            <add-to-group group-id="CodeMenu" anchor="last"/>
             <add-to-group group-id="CodeMenu" anchor="last"/>
         </action>
     </actions>

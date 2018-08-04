@@ -29,6 +29,15 @@
               <toolTipText value="Click to navigate to class"/>
             </properties>
           </component>
+          <component id="ee23d" class="javax.swing.JButton" binding="copyButton" default-binding="true">
+            <constraints/>
+            <properties>
+              <enabled value="false"/>
+              <icon value="actions/copy.png"/>
+              <inheritsPopupMenu value="true"/>
+              <text value="Copy"/>
+            </properties>
+          </component>
           <component id="c860c" class="javax.swing.JComboBox" binding="cmbDataModel">
             <constraints/>
             <properties>
@@ -65,6 +74,7 @@
           </grid>
         </constraints>
         <properties>
+          <enabled value="false"/>
           <opaque value="true"/>
         </properties>
         <border type="none"/>

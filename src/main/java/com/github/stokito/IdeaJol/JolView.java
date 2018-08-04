@@ -2,6 +2,7 @@ package com.github.stokito.IdeaJol;
 
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.components.ServiceManager;
+import com.intellij.openapi.ide.CopyPasteManager;
 import com.intellij.openapi.keymap.KeymapManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.SimpleToolWindowPanel;
@@ -25,6 +26,7 @@ import org.openjdk.jol.layouters.RawLayouter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -81,6 +83,7 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         jolForm.tblObjectLayout.setSelectionMode(SINGLE_SELECTION);
         jolForm.tblObjectLayout.getSelectionModel().addListSelectionListener(this::navigateToFieldInEditor);
         jolForm.lblClassName.addMouseListener(navigateToClassInEditor());
+        jolForm.copyButton.addActionListener(this::copyObjectLayoutToClipboard);
         jolForm.cmbLayouter.addActionListener(this::layoutOptionsActionPerformed);
         jolForm.cmbDataModel.addActionListener(this::layoutOptionsActionPerformed);
     }
@@ -95,6 +98,7 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         classLabelFontStrike(FALSE);
         jolForm.lblClassName.setText(psiClass.getName());
         jolForm.lblClassName.setIcon(psiClass.getIcon(0));
+        jolForm.copyButton.setEnabled(true);
         showLayoutForSelectedClass();
     }
 
@@ -155,6 +159,7 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         jolForm.lblLossesInternal.setText(Long.toString(interLoss));
         jolForm.lblLossesExternal.setText(Long.toString(exterLoss));
         jolForm.lblLossesTotal.setText(Long.toString(totalLoss));
+        jolForm.pnlInstanceSize.setEnabled(true);
     }
 
     /** Processor cache line is almost always 64 bytes */
@@ -237,6 +242,12 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         fontAttributes.put(STRIKETHROUGH, strikethroughOn);
         Font strikedFont = new Font(fontAttributes);
         jolForm.lblClassName.setFont(strikedFont);
+    }
+
+    private void copyObjectLayoutToClipboard(ActionEvent e) {
+        Layouter layouter = getSelectedLayoter();
+        ClassLayout classLayout = layouter.layout(classData);
+        CopyPasteManager.getInstance().setContents(new StringSelection(classLayout.toPrintable()));
     }
 
     public static JolView getInstance(Project project) {
