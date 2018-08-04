@@ -21,7 +21,7 @@ class PsiClassAdapter {
                 if (psiField.getModifierList().hasModifierProperty(STATIC)) { // skip static fields
                     continue;
                 }
-                String typeText = psiField.getType().getCanonicalText();
+                String typeText = psiField.getType().getPresentableText();
                 String contendedGroup = fetchContendedGroup(psiField, "sun.misc.Contended");
                 if (contendedGroup == null) {
                     contendedGroup = fetchContendedGroup(psiField, "jdk.internal.vm.annotation.Contended");
