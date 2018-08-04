@@ -24,8 +24,8 @@ import org.openjdk.jol.layouters.Layouter;
 import org.openjdk.jol.layouters.RawLayouter;
 
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
@@ -57,7 +57,6 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
             new HotSpotLayouter(MODEL_64_COOPS, false, false, false, true, HOTSPOT_DEFAULT_FIELD_ALLOCATION_STYLE),
             new HotSpotLayouter(MODEL_64_COOPS_16, false, false, false, true, HOTSPOT_DEFAULT_FIELD_ALLOCATION_STYLE)
     };
-    private static final Object[] COLUMNS = {"Offset", "Size", "Type", "Class", "Field"};
 
     protected final Project project;
     protected final ToolWindowManager toolWindowManager;
@@ -94,7 +93,7 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
     }
 
     public void showLayoutForClass(PsiClass psiClass) {
-        this.psiClass =  SmartPointerManager.getInstance(project).createSmartPsiElementPointer(psiClass);
+        this.psiClass = SmartPointerManager.getInstance(project).createSmartPsiElementPointer(psiClass);
         this.classData = PsiClassAdapter.createClassDataFromPsiClass(psiClass);
         classLabelFontStrike(FALSE);
         jolForm.lblClassName.setText(psiClass.getName());
@@ -119,7 +118,7 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         ArrayList<Object[]> objectLines = collectObjectLayouts(classLayout);
 
         Object[][] rows = objectLines.toArray(new Object[0][0]);
-        DefaultTableModel model = new DefaultTableModel(rows, COLUMNS);
+        TableModel model = new FieldLayoutTableModel(rows);
         jolForm.tblObjectLayout.setModel(model);
         TableColumnModel columnModel = jolForm.tblObjectLayout.getColumnModel();
         columnModel.getColumn(0).setMaxWidth(50);
