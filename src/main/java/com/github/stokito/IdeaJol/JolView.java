@@ -63,7 +63,6 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
     protected final KeymapManager keymapManager;
 
     private SmartPsiElementPointer<PsiClass> psiClass;
-    private ClassData classData;
     private static final String MSG_GAP = "(alignment/padding gap)";
     private static final String MSG_NEXT_GAP = "(loss due to the next object alignment)";
     private final JolForm jolForm = new JolForm();
@@ -94,12 +93,11 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
 
     public void showLayoutForClass(PsiClass psiClass) {
         this.psiClass = SmartPointerManager.getInstance(project).createSmartPsiElementPointer(psiClass);
-        this.classData = PsiClassAdapter.createClassDataFromPsiClass(psiClass);
         classLabelFontStrike(FALSE);
         jolForm.lblClassName.setText(psiClass.getName());
         jolForm.lblClassName.setIcon(psiClass.getIcon(0));
         jolForm.copyButton.setEnabled(true);
-        showLayoutForSelectedClass();
+        showLayoutForSelectedClass(psiClass);
     }
 
     @NotNull
@@ -109,11 +107,9 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         return layouters[layouterIndex];
     }
 
-    private void showLayoutForSelectedClass() {
-        if (classData == null) {
-            return;
-        }
+    private void showLayoutForSelectedClass(PsiClass psiClass) {
         Layouter layouter = getSelectedLayoter();
+        ClassData classData = PsiClassAdapter.createClassDataFromPsiClass(psiClass);
         ClassLayout classLayout = layouter.layout(classData);
         ArrayList<Object[]> objectLines = collectObjectLayouts(classLayout);
 
@@ -183,9 +179,10 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
             @Override
             public void mouseClicked(MouseEvent e) {
                 PsiClass psiClassElement = getPsiClass();
-                if (psiClassElement != null) {
-                    psiClassElement.navigate(true);
+                if (psiClassElement == null) {
+                    return;
                 }
+                psiClassElement.navigate(true);
             }
         };
     }
@@ -226,9 +223,14 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
     }
 
     private void layoutOptionsActionPerformed(ActionEvent e) {
-        showLayoutForSelectedClass();
+        PsiClass psiClass = getPsiClass();
+        if (psiClass == null) {
+            return;
+        }
+        showLayoutForSelectedClass(psiClass);
     }
 
+    /** Safely get a PsiClass - it can be already removed then we'll keep layout but strike out class name label */
     @Nullable
     private PsiClass getPsiClass() {
         PsiClass psiClassElement = psiClass != null ? psiClass.getElement() : null;
@@ -248,7 +250,12 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
     }
 
     private void copyObjectLayoutToClipboard(ActionEvent e) {
+        PsiClass psiClass = getPsiClass();
+        if (psiClass == null) {
+            return;
+        }
         Layouter layouter = getSelectedLayoter();
+        ClassData classData = PsiClassAdapter.createClassDataFromPsiClass(psiClass);
         ClassLayout classLayout = layouter.layout(classData);
         CopyPasteManager.getInstance().setContents(new StringSelection(classLayout.toPrintable()));
     }
