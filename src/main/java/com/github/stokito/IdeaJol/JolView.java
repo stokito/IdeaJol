@@ -107,9 +107,7 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
     }
 
     private void showLayoutForSelectedClass(PsiClass psiClass) {
-        Layouter layouter = getSelectedLayoter();
-        ClassData classData = PsiClassAdapter.createClassDataFromPsiClass(psiClass);
-        ClassLayout classLayout = layouter.layout(classData);
+        ClassLayout classLayout = calcClassLayout(psiClass);
         ArrayList<FieldLayout> objectLayouts = collectObjectLayouts(classLayout);
 
         TableModel model = new FieldLayoutTableModel(objectLayouts);
@@ -253,10 +251,14 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         if (psiClass == null) {
             return;
         }
+        ClassLayout classLayout = calcClassLayout(psiClass);
+        CopyPasteManager.getInstance().setContents(new StringSelection(classLayout.toPrintable()));
+    }
+
+    private ClassLayout calcClassLayout(PsiClass psiClass) {
         Layouter layouter = getSelectedLayoter();
         ClassData classData = PsiClassAdapter.createClassDataFromPsiClass(psiClass);
-        ClassLayout classLayout = layouter.layout(classData);
-        CopyPasteManager.getInstance().setContents(new StringSelection(classLayout.toPrintable()));
+        return layouter.layout(classData);
     }
 
     public static JolView getInstance(Project project) {
