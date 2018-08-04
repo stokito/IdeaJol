@@ -25,6 +25,7 @@ import org.openjdk.jol.layouters.RawLayouter;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
@@ -120,6 +121,11 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         Object[][] rows = objectLines.toArray(new Object[0][0]);
         DefaultTableModel model = new DefaultTableModel(rows, COLUMNS);
         jolForm.tblObjectLayout.setModel(model);
+        TableColumnModel columnModel = jolForm.tblObjectLayout.getColumnModel();
+        columnModel.getColumn(0).setMaxWidth(50);
+        columnModel.getColumn(0).setResizable(false);
+        columnModel.getColumn(1).setMaxWidth(50);
+        columnModel.getColumn(1).setResizable(false);
     }
 
     /**
