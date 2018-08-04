@@ -26,7 +26,7 @@
               <labelFor value="c860c"/>
               <preferredSize width="100" height="26"/>
               <text value=""/>
-              <toolTipText value="Selected class"/>
+              <toolTipText value="Click to navigate to class"/>
             </properties>
           </component>
           <component id="c860c" class="javax.swing.JComboBox" binding="cmbDataModel">
@@ -45,6 +45,7 @@
           <component id="bfe16" class="javax.swing.JComboBox" binding="cmbLayouter">
             <constraints/>
             <properties>
+              <minimumSize width="70" height="26"/>
               <model>
                 <item value="Raw"/>
                 <item value="HotSpot"/>

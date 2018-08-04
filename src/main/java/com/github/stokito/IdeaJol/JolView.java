@@ -32,6 +32,7 @@ import java.awt.font.TextAttribute;
 import java.util.ArrayList;
 import java.util.Map;
 
+import static com.intellij.ui.JBColor.RED;
 import static java.awt.font.TextAttribute.STRIKETHROUGH;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
@@ -61,7 +62,6 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
 
     private SmartPsiElementPointer<PsiClass> psiClass;
     private ClassData classData;
-    private ClassLayout classLayout;
     private static final String MSG_GAP = "(alignment/padding gap)";
     private static final String MSG_NEXT_GAP = "(loss due to the next object alignment)";
     private final JolForm jolForm = new JolForm();
@@ -110,9 +110,8 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
             return;
         }
         Layouter layouter = getSelectedLayoter();
-        classLayout = layouter.layout(classData);
-
-        ArrayList<Object[]> objectLines = collectObjectLayouts();
+        ClassLayout classLayout = layouter.layout(classData);
+        ArrayList<Object[]> objectLines = collectObjectLayouts(classLayout);
 
         Object[][] rows = objectLines.toArray(new Object[0][0]);
         DefaultTableModel model = new DefaultTableModel(rows, COLUMNS);
@@ -124,7 +123,7 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
      * TODO: This should be already done in classLayout so we shouldn't make any calculations
      */
     @NotNull
-    private ArrayList<Object[]> collectObjectLayouts() {
+    private ArrayList<Object[]> collectObjectLayouts(ClassLayout classLayout) {
         ArrayList<Object[]> objectLines = new ArrayList<>(classLayout.fields().size() + 8);
         objectLines.add(new Object[]{0, classLayout.headerSize(), null, null, "(object header)"});
         long nextFree = classLayout.headerSize();
@@ -146,11 +145,28 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         }
         long totalLoss = interLoss + exterLoss;
 
+        showTotalInstanceSize(interLoss, exterLoss, sizeOf, totalLoss);
+        return objectLines;
+    }
+
+    private void showTotalInstanceSize(long interLoss, long exterLoss, long sizeOf, long totalLoss) {
         jolForm.lblInstanceSize.setText(Long.toString(sizeOf));
+        changeLabelInstanceSizeColorIfLargerThanCacheLine(sizeOf);
         jolForm.lblLossesInternal.setText(Long.toString(interLoss));
         jolForm.lblLossesExternal.setText(Long.toString(exterLoss));
         jolForm.lblLossesTotal.setText(Long.toString(totalLoss));
-        return objectLines;
+    }
+
+    /** Processor cache line is almost always 64 bytes */
+    private void changeLabelInstanceSizeColorIfLargerThanCacheLine(long sizeOf) {
+        if (sizeOf > 64) {
+            jolForm.lblInstanceSize.setForeground(RED);
+            jolForm.lblInstanceSize.setToolTipText("More that 64 bytes of cache line and this is bad for performance");
+        } else {
+            // copy default label color from another label
+            jolForm.lblInstanceSize.setForeground(jolForm.lblLossesExternal.getForeground());
+            jolForm.lblInstanceSize.setToolTipText(null);
+        }
     }
 
     @NotNull
