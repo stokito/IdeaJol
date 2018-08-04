@@ -6,6 +6,8 @@ import org.jetbrains.annotations.Nullable;
 import org.openjdk.jol.info.ClassData;
 import org.openjdk.jol.info.FieldData;
 
+import static com.intellij.psi.PsiModifier.STATIC;
+
 class PsiClassAdapter {
     @NotNull
     static ClassData createClassDataFromPsiClass(@NotNull PsiClass psiClass) {
@@ -16,7 +18,7 @@ class PsiClassAdapter {
         }
         do {
             for (PsiField psiField : psiClass.getFields()) {
-                if (psiField.getModifierList().hasModifierProperty("static")) { // skip static fields
+                if (psiField.getModifierList().hasModifierProperty(STATIC)) { // skip static fields
                     continue;
                 }
                 String typeText = psiField.getType().getCanonicalText();
