@@ -29,8 +29,8 @@
             <add-to-group group-id="CodeMenu" anchor="last"/>
         </action>
         <action id="copyObjectLayout" class="com.github.stokito.IdeaJol.CopyObjectLayoutAction" text="Copy Object Layout" description="Copy to clipboard JVM Object Layout of the current class">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
             <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
-            <add-to-group group-id="CodeMenu" anchor="last"/>
             <add-to-group group-id="CodeMenu" anchor="last"/>
         </action>
     </actions>
