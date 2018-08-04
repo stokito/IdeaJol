@@ -51,7 +51,6 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
             new RawLayouter(MODEL_32),
             new RawLayouter(MODEL_64),
             new RawLayouter(MODEL_64_COOPS),
-            new RawLayouter(MODEL_64_COOPS_16),
             new HotSpotLayouter(MODEL_32, false, false, false, true, HOTSPOT_DEFAULT_FIELD_ALLOCATION_STYLE),
             new HotSpotLayouter(MODEL_64, false, false, false, true, HOTSPOT_DEFAULT_FIELD_ALLOCATION_STYLE),
             new HotSpotLayouter(MODEL_64_COOPS, false, false, false, true, HOTSPOT_DEFAULT_FIELD_ALLOCATION_STYLE),
@@ -82,7 +81,6 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         jolForm.tblObjectLayout.getSelectionModel().addListSelectionListener(this::navigateToFieldInEditor);
         jolForm.lblClassName.addMouseListener(navigateToClassInEditor());
         jolForm.copyButton.addActionListener(this::copyObjectLayoutToClipboard);
-        jolForm.cmbLayouter.addActionListener(this::layoutOptionsActionPerformed);
         jolForm.cmbDataModel.addActionListener(this::layoutOptionsActionPerformed);
     }
 
@@ -101,8 +99,7 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
 
     @NotNull
     private Layouter getSelectedLayoter() {
-        // we have 4 datamodels for each layouter. This can be replaced with two dimensional array but this more fun
-        int layouterIndex = (4 * jolForm.cmbLayouter.getSelectedIndex()) + jolForm.cmbDataModel.getSelectedIndex();
+        int layouterIndex = jolForm.cmbDataModel.getSelectedIndex();
         return layouters[layouterIndex];
     }
 
