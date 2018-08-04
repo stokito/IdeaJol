@@ -165,7 +165,6 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         jolForm.lblLossesInternal.setText(Long.toString(interLoss));
         jolForm.lblLossesExternal.setText(Long.toString(exterLoss));
         jolForm.lblLossesTotal.setText(Long.toString(totalLoss));
-        jolForm.pnlInstanceSize.setEnabled(true);
     }
 
     /** Processor cache line is almost always 64 bytes */

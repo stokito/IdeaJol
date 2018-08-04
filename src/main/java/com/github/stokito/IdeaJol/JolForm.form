@@ -74,7 +74,7 @@
           </grid>
         </constraints>
         <properties>
-          <enabled value="false"/>
+          <enabled value="true"/>
           <opaque value="true"/>
         </properties>
         <border type="none"/>
