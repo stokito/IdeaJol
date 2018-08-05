@@ -3,7 +3,6 @@ package com.github.stokito.IdeaJol;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.ide.CopyPasteManager;
-import com.intellij.openapi.keymap.KeymapManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.SimpleToolWindowPanel;
 import com.intellij.openapi.wm.ToolWindowManager;
@@ -56,20 +55,18 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
             new HotSpotLayouter(MODEL_64_COOPS, false, false, false, true, HOTSPOT_DEFAULT_FIELD_ALLOCATION_STYLE),
             new HotSpotLayouter(MODEL_64_COOPS_16, false, false, false, true, HOTSPOT_DEFAULT_FIELD_ALLOCATION_STYLE)
     };
-
-    protected final Project project;
-    protected final ToolWindowManager toolWindowManager;
-    protected final KeymapManager keymapManager;
-
-    private SmartPsiElementPointer<PsiClass> psiClass;
     private static final String MSG_GAP = "(alignment/padding gap)";
     private static final String MSG_NEXT_GAP = "(loss due to the next object alignment)";
-    private final JolForm jolForm = new JolForm();
 
-    public JolView(final ToolWindowManager toolWindowManager, KeymapManager keymapManager, final Project project) {
+    protected Project project;
+    protected ToolWindowManager toolWindowManager;
+
+    private SmartPsiElementPointer<PsiClass> psiClass;
+    private JolForm jolForm = new JolForm();
+
+    public JolView(final ToolWindowManager toolWindowManager, final Project project) {
         super(true, true);
         this.toolWindowManager = toolWindowManager;
-        this.keymapManager = keymapManager;
         this.project = project;
         setupUI();
     }
@@ -86,6 +83,10 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
 
     @Override
     public void dispose() {
+        project = null;
+        toolWindowManager = null;
+        psiClass = null;
+        jolForm = null;
     }
 
     public void showLayoutForClass(PsiClass psiClass) {
