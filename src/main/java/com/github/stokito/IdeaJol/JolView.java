@@ -55,8 +55,6 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
             new HotSpotLayouter(MODEL_64_COOPS, false, false, false, true, HOTSPOT_DEFAULT_FIELD_ALLOCATION_STYLE),
             new HotSpotLayouter(MODEL_64_COOPS_16, false, false, false, true, HOTSPOT_DEFAULT_FIELD_ALLOCATION_STYLE)
     };
-    private static final String MSG_GAP = "(alignment/padding gap)";
-    private static final String MSG_NEXT_GAP = "(loss due to the next object alignment)";
 
     protected Project project;
     protected ToolWindowManager toolWindowManager;
@@ -131,7 +129,7 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         for (FieldLayout fieldLayout : classLayout.fields()) {
             if (fieldLayout.offset() > nextFree) {
                 long fieldLayoutSize = fieldLayout.offset() - nextFree;
-                objectLines.add(new FieldLayoutPadding(nextFree, fieldLayoutSize, MSG_GAP));
+                objectLines.add(new FieldLayoutPadding(nextFree, fieldLayoutSize, "(alignment/padding gap)"));
                 interLoss += fieldLayoutSize;
             }
             objectLines.add(fieldLayout);
@@ -140,7 +138,7 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         long sizeOf = classLayout.instanceSize();
         if (sizeOf != nextFree) {
             exterLoss = sizeOf - nextFree;
-            objectLines.add(new FieldLayoutPadding(nextFree, exterLoss, MSG_NEXT_GAP));
+            objectLines.add(new FieldLayoutPadding(nextFree, exterLoss, "(loss due to the next object alignment)"));
         }
         long totalLoss = interLoss + exterLoss;
 
