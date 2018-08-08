@@ -72,13 +72,13 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
     }
 
     private void setupUI() {
-        add(jolForm.rootPanel, BorderLayout.CENTER);
         jolForm.tblObjectLayout.getEmptyText().setText("Select a class then press Code / Show Object Layout");
         jolForm.tblObjectLayout.setSelectionMode(SINGLE_SELECTION);
         jolForm.tblObjectLayout.getSelectionModel().addListSelectionListener(this::navigateToFieldInEditor);
         jolForm.lblClassName.addMouseListener(navigateToClassInEditor());
         jolForm.copyButton.addActionListener(this::copyObjectLayoutToClipboard);
         jolForm.cmbDataModel.addActionListener(this::layoutOptionsActionPerformed);
+        setContent(jolForm.rootPanel);
     }
 
     @Override

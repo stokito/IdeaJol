@@ -10,7 +10,7 @@ class JolForm {
     JComponent rootPanel;
     JLabel lblInstanceSize;
     JLabel lblClassName;
-    JToolBar toolbarPanel;
+    JPanel pnlToolbar;
     JComboBox cmbDataModel;
     JBTable tblObjectLayout;
     JPanel pnlInstanceSize;
