@@ -1,15 +1,16 @@
 # Java Object Layout (JOL) plugin for IntelliJ Idea
 
-[jol](http://openjdk.java.net/projects/code-tools/jol/) is the tiny toolbox to analyze object layout schemes in JVMs.
-These tools are using Unsafe, JVMTI, and Serviceability Agent (SA) heavily to decoder the actual object layout, footprint, and references.
-This makes JOL much more accurate than other tools relying on heap dumps, specification assumptions, etc.
+[JOL](http://openjdk.java.net/projects/code-tools/jol/) (Java Object Layout) is the tiny toolbox to analyze object layout schemes in JVMs.
+For example, in HotSpot VM on 64x processor an empty string takes 40 bytes i.e. 24 bytes for String object itself + 16 bytes for an internal empty char array.
 
-This plugin supports only basic estimate of class layout in different VM modes i.e. the same as `jol-cli estimates` command.
+The plugin is a GUI for JOL and allows you to make an estimate how much memory the object takes. Thus you can perform a simplest but most efficient performance improvements. Just check your DTOs if they fit into 64 bytes of processor's cache line.
+  
+ATM the plugin supports only basic estimate of class layout in different VM modes i.e. the same as `jol-cli estimates` command.
 
 **NOTE:** Your app most likely will use the `64-bit VM, compressed references` mode. 
 
 ## Install the plugin
-Open File / Settings / Plugins  then press `Install from Disk` button and select the [IdeaJol.zip](https://github.com/stokito/IdeaJol/releases/download/v1.3.0/IdeaJol.zip) file.
+Open File / Settings / Plugins  then type `JOL` in search input and press `Browse in repositories` button.
 
 ## Usage
 Set a cursor into a class name and then press Code / Show Object Layout and you'll see a right panel with layout info.
