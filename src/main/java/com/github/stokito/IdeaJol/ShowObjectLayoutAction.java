@@ -24,7 +24,11 @@ public class ShowObjectLayoutAction extends AnAction {
         Project project = event.getProject();
         assert project != null;
         PsiClass psiClass = getSelectedPsiClass(event);
-        assert psiClass != null;
+        if (psiClass == null) { //FIXME
+            LOG.error("Can't show layout: unable to determine selected class. Are you selected a class name?");
+            return;
+        }
+//        assert psiClass != null;
         try {
             JolView.getInstance(project).showLayoutForClass(psiClass);
             ToolWindowManager.getInstance(project).getToolWindow("JOL").activate(null);
