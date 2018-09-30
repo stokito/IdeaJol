@@ -34,5 +34,12 @@
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow id="JOL" anchor="right" icon="/ram-13x13.png" factoryClass="com.github.stokito.IdeaJol.JolToolWindowFactory"/>
         <projectService serviceInterface="com.github.stokito.IdeaJol.JolView" serviceImplementation="com.github.stokito.IdeaJol.JolView"/>
+        <localInspection shortName="jol"
+                         displayName="Class have too big memory footprint"
+                         groupPath="Java"
+                         groupName="Memory"
+                         enabledByDefault="true"
+                         level="WARNING"
+                         implementationClass="com.github.stokito.IdeaJol.JolInspection"/>
     </extensions>
 </idea-plugin>
