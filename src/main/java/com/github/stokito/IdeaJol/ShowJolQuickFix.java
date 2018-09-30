@@ -18,7 +18,7 @@ public class ShowJolQuickFix implements LocalQuickFix {
     @NotNull
     @Override
     public String getFamilyName() {
-        return "Show JOL";
+        return "Show Object Layout";
     }
 
     @Override

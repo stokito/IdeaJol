@@ -12,6 +12,7 @@ public class JolInspection extends AbstractBaseJavaLocalInspectionTool {
     private static final String[] BUSINESS_LOGIC_CLASS_MARKERS = {"Controller", "Service", "Strategy", "Adapter", "Exception", "Impl", "Dao"};
     private static final Layouter LAYOUTER = Layouters.LAYOUTERS[5]; // hotspot coops
     private static final long THRESHOLD = 64;
+    private static final LocalQuickFix SHOW_JOL_QUICK_FIX = new ShowJolQuickFix();
 
     @Nullable
     @Override
@@ -24,8 +25,7 @@ public class JolInspection extends AbstractBaseJavaLocalInspectionTool {
         if (layout.instanceSize() <= THRESHOLD) {
             return null;
         }
-        LocalQuickFix showJolAction = new ShowJolQuickFix();
-        ProblemDescriptor problem = manager.createProblemDescriptor(aClass, "Class have too big memory footprint", showJolAction, ProblemHighlightType.WEAK_WARNING, isOnTheFly);
+        ProblemDescriptor problem = manager.createProblemDescriptor(aClass, "Class have too big memory footprint", SHOW_JOL_QUICK_FIX, ProblemHighlightType.WEAK_WARNING, isOnTheFly);
         return new ProblemDescriptor[]{problem};
     }
 
