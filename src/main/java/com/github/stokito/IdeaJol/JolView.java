@@ -12,15 +12,10 @@ import com.intellij.psi.SmartPointerManager;
 import com.intellij.psi.SmartPsiElementPointer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.openjdk.jol.datamodel.X86_32_DataModel;
-import org.openjdk.jol.datamodel.X86_64_COOPS_DataModel;
-import org.openjdk.jol.datamodel.X86_64_DataModel;
 import org.openjdk.jol.info.ClassData;
 import org.openjdk.jol.info.ClassLayout;
 import org.openjdk.jol.info.FieldLayout;
-import org.openjdk.jol.layouters.HotSpotLayouter;
 import org.openjdk.jol.layouters.Layouter;
-import org.openjdk.jol.layouters.RawLayouter;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.TableColumnModel;
@@ -34,6 +29,7 @@ import java.awt.font.TextAttribute;
 import java.util.ArrayList;
 import java.util.Map;
 
+import static com.github.stokito.IdeaJol.Layouters.LAYOUTERS;
 import static com.intellij.ui.JBColor.RED;
 import static java.awt.font.TextAttribute.STRIKETHROUGH;
 import static java.lang.Boolean.FALSE;
@@ -41,21 +37,6 @@ import static java.lang.Boolean.TRUE;
 import static javax.swing.ListSelectionModel.SINGLE_SELECTION;
 
 public class JolView extends SimpleToolWindowPanel implements Disposable {
-    private static final int HOTSPOT_DEFAULT_FIELD_ALLOCATION_STYLE = 1;
-    private static final X86_32_DataModel MODEL_32 = new X86_32_DataModel();
-    private static final X86_64_DataModel MODEL_64 = new X86_64_DataModel();
-    private static final X86_64_COOPS_DataModel MODEL_64_COOPS = new X86_64_COOPS_DataModel();
-    private static final X86_64_COOPS_DataModel MODEL_64_COOPS_16 = new X86_64_COOPS_DataModel(16);
-    private static final Layouter[] layouters = {
-            new RawLayouter(MODEL_32),
-            new RawLayouter(MODEL_64),
-            new RawLayouter(MODEL_64_COOPS),
-            new HotSpotLayouter(MODEL_32, false, false, false, true, HOTSPOT_DEFAULT_FIELD_ALLOCATION_STYLE),
-            new HotSpotLayouter(MODEL_64, false, false, false, true, HOTSPOT_DEFAULT_FIELD_ALLOCATION_STYLE),
-            new HotSpotLayouter(MODEL_64_COOPS, false, false, false, true, HOTSPOT_DEFAULT_FIELD_ALLOCATION_STYLE),
-            new HotSpotLayouter(MODEL_64_COOPS_16, false, false, false, true, HOTSPOT_DEFAULT_FIELD_ALLOCATION_STYLE)
-    };
-
     protected Project project;
     protected ToolWindowManager toolWindowManager;
 
@@ -99,7 +80,7 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
     @NotNull
     private Layouter getSelectedLayoter() {
         int layouterIndex = jolForm.cmbDataModel.getSelectedIndex();
-        return layouters[layouterIndex];
+        return LAYOUTERS[layouterIndex];
     }
 
     private void showLayoutForSelectedClass(PsiClass psiClass) {
@@ -188,14 +169,14 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         }
         String className = (String) jolForm.tblObjectLayout.getModel().getValueAt(fieldIndex, 3);
         String fieldName = (String) jolForm.tblObjectLayout.getModel().getValueAt(fieldIndex, 4);
-        PsiField psiField = findField(className, fieldName);
+        PsiField psiField = findFieldInHierarchy(className, fieldName);
         if (psiField != null) {
             psiField.navigate(true);
         }
     }
 
     @Nullable
-    private PsiField findField(String className, String fieldName) {
+    private PsiField findFieldInHierarchy(String className, String fieldName) {
         if (fieldName == null) {
             return null;
         }
