@@ -30,7 +30,7 @@ public class JolInspection extends AbstractBaseJavaLocalInspectionTool {
     @SuppressWarnings("WeakerAccess")
     public int selectedLayouter = 5; // Hotspot COOPS
     @SuppressWarnings("WeakerAccess")
-    public int sizeThreshold = 128; // 2 cache lines
+    public int sizeThreshold = 64; // cache line
 
     @Nullable
     @Override
@@ -112,7 +112,7 @@ public class JolInspection extends AbstractBaseJavaLocalInspectionTool {
         final ComboBox<String> layouterComboBox = new ComboBox<>(layouterNames);
         layouterComboBox.setSelectedIndex(selectedLayouter);
         layouterComboBox.addActionListener(e -> selectedLayouter = layouterComboBox.getSelectedIndex());
-        layouterComboBox.setToolTipText("Almost everywhere is used HotSpot 64x COOPS. Raw layouter shows size of the fields themselves");
+        layouterComboBox.setToolTipText("Almost everywhere used HotSpot 64x COOPS. Raw layouter shows size of the fields themselves");
 
         final ListTable businessLogicClassSuffixesTable = new ListTable(new ListWrappingTableModel(businessLogicClassSuffixes, "Business Logic Class Suffixes"));
         final JPanel businessLogicClassSuffixesTablePanel = UiUtils.createAddRemovePanel(businessLogicClassSuffixesTable);
