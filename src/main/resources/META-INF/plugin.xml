@@ -7,7 +7,7 @@
     <description>
         <![CDATA[
         <p>
-        <a href="http://openjdk.java.net/projects/code-tools/jol/">jol</a> is the tiny toolbox to analyze object layout schemes in JVMs.
+        <a href="https://openjdk.java.net/projects/code-tools/jol/">jol</a> is the tiny toolbox to analyze object layout schemes in JVMs.
         It allows you to make an estimate how much memory the object takes. This allows to make a simplest but most efficient performance improvements. Just check your DTOs if they fit into 64 bytes of processor's cache line.
         </p>
         <p>For example, in HotSpot VM on 64x processor an empty string takes 40 bytes i.e. 24 bytes for String object itself + 16 bytes for an internal empty char array.
@@ -15,12 +15,13 @@
     ]]>
     </description>
     <change-notes><![CDATA[
+      v1.6.0 Added an inspection to report about to big classes.<br>
       v1.5.0 show layout in table instead of raw text.<br>
       v1.3.0 first published version.<br>
     ]]>
     </change-notes>
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html on how to target different products -->
-    <version>1.5.0</version>
+    <version>1.6.0</version>
     <vendor email="stokito@gmail.com" url="https://stokito.com/">Sergey Ponomarev</vendor>
     <depends>com.intellij.modules.java</depends>
     <actions>
