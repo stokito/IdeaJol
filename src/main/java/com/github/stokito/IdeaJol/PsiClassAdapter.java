@@ -18,7 +18,7 @@ public class PsiClassAdapter {
         }
         do {
             for (PsiField psiField : psiClass.getFields()) {
-                if (psiField.getModifierList().hasModifierProperty(STATIC)) { // skip static fields
+                if (psiField.hasModifierProperty(STATIC)) { // skip static fields
                     continue;
                 }
                 String typeText = psiField.getType().getPresentableText();
