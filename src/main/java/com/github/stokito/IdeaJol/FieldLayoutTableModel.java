@@ -33,11 +33,11 @@ class FieldLayoutTableModel extends AbstractTableModel {
             case 1:
                 return fieldLayout.size();
             case 2:
-                return fieldLayout instanceof FieldLayoutPadding ? null : fieldLayout.typeClass();
+                return fieldLayout instanceof FieldLayoutGap ? null : fieldLayout.typeClass();
             case 3:
-                return fieldLayout instanceof FieldLayoutPadding ? null : fieldLayout.classShortName();
+                return fieldLayout instanceof FieldLayoutGap ? null : fieldLayout.classShortName();
             case 4:
-                return fieldLayout instanceof FieldLayoutPadding ? ((FieldLayoutPadding)fieldLayout).getDescription() : fieldLayout.name();
+                return fieldLayout instanceof FieldLayoutGap ? ((FieldLayoutGap)fieldLayout).getDescription() : fieldLayout.name();
             default:
                 return null;
         }
