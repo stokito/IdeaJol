@@ -8,7 +8,7 @@ import org.openjdk.jol.info.FieldData;
 
 import static com.intellij.psi.PsiModifier.STATIC;
 
-class PsiClassAdapter {
+public class PsiClassAdapter {
     @NotNull
     public static ClassData createClassDataFromPsiClass(@NotNull PsiClass psiClass) {
         ClassData classData = new ClassData(psiClass.getQualifiedName());

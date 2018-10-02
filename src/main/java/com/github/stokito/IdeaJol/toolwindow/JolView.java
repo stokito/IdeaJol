@@ -1,5 +1,7 @@
-package com.github.stokito.IdeaJol;
+package com.github.stokito.IdeaJol.toolwindow;
 
+import com.github.stokito.IdeaJol.FieldLayoutGap;
+import com.github.stokito.IdeaJol.PsiClassAdapter;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.ide.CopyPasteManager;

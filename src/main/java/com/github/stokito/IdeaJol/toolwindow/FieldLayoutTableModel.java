@@ -1,5 +1,6 @@
-package com.github.stokito.IdeaJol;
+package com.github.stokito.IdeaJol.toolwindow;
 
+import com.github.stokito.IdeaJol.FieldLayoutGap;
 import org.openjdk.jol.info.FieldLayout;
 
 import javax.swing.table.AbstractTableModel;

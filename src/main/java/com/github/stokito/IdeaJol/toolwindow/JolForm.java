@@ -1,4 +1,4 @@
-package com.github.stokito.IdeaJol;
+package com.github.stokito.IdeaJol.toolwindow;
 
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.ui.table.JBTable;

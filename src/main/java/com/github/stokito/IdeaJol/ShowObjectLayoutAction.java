@@ -1,5 +1,6 @@
 package com.github.stokito.IdeaJol;
 
+import com.github.stokito.IdeaJol.toolwindow.JolView;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
