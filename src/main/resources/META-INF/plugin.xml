@@ -41,6 +41,6 @@
                          groupName="Memory"
                          enabledByDefault="true"
                          level="WARNING"
-                         implementationClass="com.github.stokito.IdeaJol.JolInspection"/>
+                         implementationClass="com.github.stokito.IdeaJol.inspection.JolInspection"/>
     </extensions>
 </idea-plugin>

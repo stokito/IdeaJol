@@ -1,4 +1,4 @@
-package com.github.stokito.IdeaJol;
+package com.github.stokito.IdeaJol.inspection;
 
 import com.intellij.codeInspection.LocalQuickFix;
 import com.intellij.codeInspection.ProblemDescriptor;

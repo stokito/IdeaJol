@@ -1,5 +1,6 @@
-package com.github.stokito.IdeaJol;
+package com.github.stokito.IdeaJol.inspection;
 
+import com.github.stokito.IdeaJol.PsiClassAdapter;
 import com.intellij.codeInspection.*;
 import com.intellij.codeInspection.ui.ListTable;
 import com.intellij.codeInspection.ui.ListWrappingTableModel;
