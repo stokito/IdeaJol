@@ -10,7 +10,7 @@ import static com.intellij.psi.PsiModifier.STATIC;
 
 class PsiClassAdapter {
     @NotNull
-    static ClassData createClassDataFromPsiClass(@NotNull PsiClass psiClass) {
+    public static ClassData createClassDataFromPsiClass(@NotNull PsiClass psiClass) {
         ClassData classData = new ClassData(psiClass.getQualifiedName());
         if (psiClass.getSuperClass() != null) {
             ClassData supperClassData = createClassDataFromPsiClass(psiClass.getSuperClass());

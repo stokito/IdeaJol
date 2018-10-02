@@ -1,5 +1,6 @@
-package com.github.stokito.IdeaJol;
+package com.github.stokito.IdeaJol.toolwindow;
 
+import com.github.stokito.IdeaJol.JolView;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
