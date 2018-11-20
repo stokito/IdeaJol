@@ -27,7 +27,10 @@ public class JolInspection extends AbstractBaseJavaLocalInspectionTool {
     private static final LocalQuickFix SHOW_JOL_QUICK_FIX = new ShowJolQuickFix();
 
     @SuppressWarnings("WeakerAccess")
-    public List<String> businessLogicClassSuffixes = new ArrayList<>(Arrays.asList("Controller", "Service", "Strategy", "Adapter", "Exception", "Impl", "Dao"));
+    public List<String> businessLogicClassSuffixes = new ArrayList<>(Arrays.asList(
+            "Exception", "Test", "Spec", "Impl", "Dao", "Utils",
+            "Controller", "Service", "Strategy", "Adapter", "Factory", "Provider", "Handler", "Registry", "Filter", "Interceptor", "Executor"
+    ));
     @SuppressWarnings("WeakerAccess")
     public int selectedLayouter = 5; // Hotspot COOPS
     @SuppressWarnings("WeakerAccess")
