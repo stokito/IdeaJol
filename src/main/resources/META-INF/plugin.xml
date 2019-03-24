@@ -1,5 +1,5 @@
 <idea-plugin url="https://github.com/stokito/IdeaJol">
-    <name>Java Object Layout</name>
+    <name>JOL Java Object Layout</name>
     <id>JOL</id>
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
     <idea-version since-build="182.0"/>
@@ -8,13 +8,15 @@
         <![CDATA[
         <p>
         <a href="https://openjdk.java.net/projects/code-tools/jol/">jol</a> is the tiny toolbox to analyze object layout schemes in JVMs.
-        It allows you to make an estimate how much memory the object takes. This allows to make a simplest but most efficient performance improvements. Just check your DTOs if they fit into 64 bytes of processor's cache line.
+        It allows you to make an estimate how much memory the object takes. This allows to make a simplest but most efficient performance improvements.
+        Just check your DTOs if they fit into 64 bytes of processor's cache line.
         </p>
-        <p>For example, in HotSpot VM on 64x processor an empty string takes 40 bytes i.e. 24 bytes for String object itself + 16 bytes for an internal empty char array.
+        <p>For example, in HotSpot VM on 64x processor an empty string "" takes 40 bytes i.e. 24 bytes for String object itself + 16 bytes for an internal empty char array.
         </p>
     ]]>
     </description>
     <change-notes><![CDATA[
+      v1.6.1 Update JOL to v0.10 and fix of minor bugs<br>
       v1.6.0 Added an inspection to report about to big classes.<br>
       v1.5.0 show layout in table instead of raw text.<br>
       v1.3.0 first published version.<br>
