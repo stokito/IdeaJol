@@ -23,7 +23,7 @@
     ]]>
     </change-notes>
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html on how to target different products -->
-    <version>1.6.0</version>
+    <version>1.6.1</version>
     <vendor email="stokito@gmail.com" url="https://stokito.com/">Sergey Ponomarev</vendor>
     <depends>com.intellij.modules.java</depends>
     <actions>
