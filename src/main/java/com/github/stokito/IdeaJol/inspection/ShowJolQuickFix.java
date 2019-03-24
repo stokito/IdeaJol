@@ -1,20 +1,18 @@
 package com.github.stokito.IdeaJol.inspection;
 
+import com.github.stokito.IdeaJol.toolwindow.JolView;
 import com.intellij.codeInspection.LocalQuickFix;
 import com.intellij.codeInspection.ProblemDescriptor;
-import com.intellij.ide.DataManager;
-import com.intellij.openapi.actionSystem.*;
+import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
-import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 
-import static com.intellij.openapi.actionSystem.ActionPlaces.UNKNOWN;
-import static org.jetbrains.annotations.Nls.Capitalization.Sentence;
-
 public class ShowJolQuickFix implements LocalQuickFix {
-    @Nls(capitalization = Sentence)
+    private static final Logger LOG = Logger.getInstance(ShowJolQuickFix.class);
+
     @NotNull
     @Override
     public String getFamilyName() {
@@ -27,11 +25,11 @@ public class ShowJolQuickFix implements LocalQuickFix {
         if (!(psiClass instanceof PsiClass)) {
             return;
         }
-        ActionManager am = ActionManager.getInstance();
-        DataContext dataContext = DataManager.getInstance().getDataContext();
-        Presentation presentation = new Presentation();
-        AnActionEvent anActionEvent = new AnActionEvent(null, dataContext, UNKNOWN, presentation, am, 0);
-        am.getAction("showObjectLayout").actionPerformed(anActionEvent);
-
+        try {
+            JolView.getInstance(project).showLayoutForClass((PsiClass) psiClass);
+            ToolWindowManager.getInstance(project).getToolWindow("JOL").activate(null);
+        } catch (Exception ex) {
+            LOG.error("Unable to generate layout", ex);
+        }
     }
 }
