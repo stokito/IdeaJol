@@ -17,19 +17,21 @@ import org.openjdk.jol.layouters.Layouter;
 
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
 import static com.github.stokito.IdeaJol.Layouters.LAYOUTERS;
+import static com.intellij.codeInspection.ProblemHighlightType.WEAK_WARNING;
+import static java.util.Arrays.asList;
 
 public class JolInspection extends AbstractBaseJavaLocalInspectionTool {
     private static final LocalQuickFix SHOW_JOL_QUICK_FIX = new ShowJolQuickFix();
 
     @SuppressWarnings("WeakerAccess")
-    public List<String> businessLogicClassSuffixes = new ArrayList<>(Arrays.asList(
+    public List<String> businessLogicClassSuffixes = new ArrayList<>(asList(
             "Exception", "Test", "Spec", "Impl", "Dao", "Utils",
-            "Controller", "Service", "Strategy", "Adapter", "Factory", "Provider", "Handler", "Registry", "Filter", "Interceptor", "Executor"
+            "Controller", "Service", "Strategy", "Adapter", "Factory", "Provider",
+            "Handler", "Registry", "Filter", "Interceptor", "Executor"
     ));
     @SuppressWarnings("WeakerAccess")
     public int selectedLayouter = 5; // Hotspot COOPS
@@ -47,7 +49,7 @@ public class JolInspection extends AbstractBaseJavaLocalInspectionTool {
         if (layout.instanceSize() <= sizeThreshold) {
             return null;
         }
-        ProblemDescriptor problem = manager.createProblemDescriptor(aClass, "Class have too big memory footprint", SHOW_JOL_QUICK_FIX, ProblemHighlightType.WEAK_WARNING, isOnTheFly);
+        ProblemDescriptor problem = manager.createProblemDescriptor(aClass, "Class have too big memory footprint", SHOW_JOL_QUICK_FIX, WEAK_WARNING, isOnTheFly);
         return new ProblemDescriptor[]{problem};
     }
 

@@ -3,18 +3,18 @@ package com.github.stokito.IdeaJol.inspection;
 import com.intellij.codeInspection.LocalQuickFix;
 import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.ide.DataManager;
-import com.intellij.openapi.actionSystem.ActionManager;
-import com.intellij.openapi.actionSystem.ActionPlaces;
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.Presentation;
+import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 
+import static com.intellij.openapi.actionSystem.ActionPlaces.UNKNOWN;
+import static org.jetbrains.annotations.Nls.Capitalization.Sentence;
+
 public class ShowJolQuickFix implements LocalQuickFix {
-    @Nls(capitalization = Nls.Capitalization.Sentence)
+    @Nls(capitalization = Sentence)
     @NotNull
     @Override
     public String getFamilyName() {
@@ -28,8 +28,9 @@ public class ShowJolQuickFix implements LocalQuickFix {
             return;
         }
         ActionManager am = ActionManager.getInstance();
-        AnActionEvent anActionEvent = new AnActionEvent(null, DataManager.getInstance().getDataContext(),
-                ActionPlaces.UNKNOWN, new Presentation(), am, 0);
+        DataContext dataContext = DataManager.getInstance().getDataContext();
+        Presentation presentation = new Presentation();
+        AnActionEvent anActionEvent = new AnActionEvent(null, dataContext, UNKNOWN, presentation, am, 0);
         am.getAction("showObjectLayout").actionPerformed(anActionEvent);
 
     }
