@@ -45,7 +45,7 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
     private SmartPsiElementPointer<PsiClass> psiClass;
     private JolForm jolForm = new JolForm();
 
-    public JolView(final ToolWindowManager toolWindowManager, final Project project) {
+    public JolView(@NotNull ToolWindowManager toolWindowManager, @NotNull Project project) {
         super(true, true);
         this.toolWindowManager = toolWindowManager;
         this.project = project;
@@ -70,7 +70,7 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         jolForm = null;
     }
 
-    public void showLayoutForClass(PsiClass psiClass) {
+    public void showLayoutForClass(@NotNull PsiClass psiClass) {
         this.psiClass = SmartPointerManager.getInstance(project).createSmartPsiElementPointer(psiClass);
         classLabelFontStrike(FALSE);
         jolForm.lblClassName.setText(psiClass.getName());
@@ -85,7 +85,7 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         return LAYOUTERS[layouterIndex];
     }
 
-    private void showLayoutForSelectedClass(PsiClass psiClass) {
+    private void showLayoutForSelectedClass(@NotNull PsiClass psiClass) {
         ClassLayout classLayout = calcClassLayout(psiClass);
         ArrayList<FieldLayout> objectLayouts = collectObjectLayouts(classLayout);
 
@@ -103,7 +103,7 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
      * TODO: This should be already done in classLayout so we shouldn't make any calculations
      */
     @NotNull
-    private ArrayList<FieldLayout> collectObjectLayouts(ClassLayout classLayout) {
+    private ArrayList<FieldLayout> collectObjectLayouts(@NotNull ClassLayout classLayout) {
         ArrayList<FieldLayout> objectLines = new ArrayList<>(classLayout.fields().size() + 8);
         objectLines.add(new FieldLayoutGap(0, classLayout.headerSize(), "(object header)"));
         long nextFree = classLayout.headerSize();
@@ -163,7 +163,7 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         };
     }
 
-    private void navigateToFieldInEditor(ListSelectionEvent e) {
+    private void navigateToFieldInEditor(@NotNull ListSelectionEvent e) {
         int fieldIndex = jolForm.tblObjectLayout.getSelectionModel().getLeadSelectionIndex();
         // on reset of model the selected index can be more than new count of rows
         if (fieldIndex == -1 || fieldIndex > jolForm.tblObjectLayout.getModel().getRowCount() - 1) {
@@ -178,7 +178,7 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
     }
 
     @Nullable
-    private PsiField findFieldInHierarchy(String className, String fieldName) {
+    private PsiField findFieldInHierarchy(@NotNull String className, @Nullable String fieldName) {
         if (fieldName == null) {
             return null;
         }
@@ -198,7 +198,7 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         return null;
     }
 
-    private void layoutOptionsActionPerformed(ActionEvent e) {
+    private void layoutOptionsActionPerformed(@NotNull ActionEvent e) {
         PsiClass psiClass = getPsiClass();
         if (psiClass == null) {
             return;
@@ -225,7 +225,7 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         jolForm.lblClassName.setFont(strikedFont);
     }
 
-    private void copyObjectLayoutToClipboard(ActionEvent e) {
+    private void copyObjectLayoutToClipboard(@NotNull ActionEvent e) {
         PsiClass psiClass = getPsiClass();
         if (psiClass == null) {
             return;
@@ -234,13 +234,13 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         CopyPasteManager.getInstance().setContents(new StringSelection(classLayout.toPrintable()));
     }
 
-    private ClassLayout calcClassLayout(PsiClass psiClass) {
+    private ClassLayout calcClassLayout(@NotNull PsiClass psiClass) {
         Layouter layouter = getSelectedLayoter();
         ClassData classData = PsiClassAdapter.createClassDataFromPsiClass(psiClass);
         return layouter.layout(classData);
     }
 
-    public static JolView getInstance(Project project) {
+    public static JolView getInstance(@NotNull Project project) {
         return ServiceManager.getService(project, JolView.class);
     }
 }
