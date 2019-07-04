@@ -6,6 +6,7 @@ import com.intellij.codeInspection.ui.ListTable;
 import com.intellij.codeInspection.ui.ListWrappingTableModel;
 import com.intellij.openapi.ui.ComboBox;
 import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiElement;
 import com.intellij.ui.components.fields.IntegerField;
 import com.intellij.util.ui.FormBuilder;
 import com.siyeh.ig.ui.UiUtils;
@@ -49,7 +50,12 @@ public class JolInspection extends AbstractBaseJavaLocalInspectionTool {
         if (layout.instanceSize() <= sizeThreshold) {
             return null;
         }
-        ProblemDescriptor problem = manager.createProblemDescriptor(aClass, "Class have too big memory footprint", SHOW_JOL_QUICK_FIX, WEAK_WARNING, isOnTheFly);
+        PsiElement navigateTo = aClass.getNameIdentifier();
+        if (navigateTo == null) {
+            // this shouldn't happen because we already have this check inside of isNotUsualClass()
+            return null;
+        }
+        ProblemDescriptor problem = manager.createProblemDescriptor(navigateTo, "Class have too big memory footprint", SHOW_JOL_QUICK_FIX, WEAK_WARNING, isOnTheFly);
         return new ProblemDescriptor[]{problem};
     }
 

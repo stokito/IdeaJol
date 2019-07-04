@@ -8,6 +8,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiIdentifier;
 import org.jetbrains.annotations.NotNull;
 
 public class ShowJolQuickFix implements LocalQuickFix {
@@ -21,12 +22,13 @@ public class ShowJolQuickFix implements LocalQuickFix {
 
     @Override
     public void applyFix(@NotNull Project project, @NotNull ProblemDescriptor problemDescriptor) {
-        PsiElement psiClass = problemDescriptor.getPsiElement();
-        if (!(psiClass instanceof PsiClass)) {
+        PsiElement psiClassIdentifier = problemDescriptor.getPsiElement();
+        if (!(psiClassIdentifier instanceof PsiIdentifier)) {
             return;
         }
         try {
-            JolView.getInstance(project).showLayoutForClass((PsiClass) psiClass);
+            PsiClass psiClass = (PsiClass) psiClassIdentifier.getParent();
+            JolView.getInstance(project).showLayoutForClass(psiClass);
             ToolWindowManager.getInstance(project).getToolWindow("JOL").activate(null);
         } catch (Exception ex) {
             LOG.error("Unable to generate layout", ex);
