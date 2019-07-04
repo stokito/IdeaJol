@@ -9,6 +9,9 @@ import org.openjdk.jol.info.FieldData;
 import static com.intellij.psi.PsiModifier.STATIC;
 
 public class PsiClassAdapter {
+    /**
+     * Reimplemented logic from org.openjdk.jol.info.ClassData#parse(java.lang.Object, java.lang.Class)
+     */
     @NotNull
     public static ClassData createClassDataFromPsiClass(@NotNull PsiClass psiClass) {
         ClassData classData = new ClassData(psiClass.getQualifiedName());
@@ -16,23 +19,33 @@ public class PsiClassAdapter {
             ClassData supperClassData = createClassDataFromPsiClass(psiClass.getSuperClass());
             classData.addSuperClassData(supperClassData);
         }
+        addClassFields(psiClass, classData);
+        return classData;
+    }
+
+    private static void addClassFields(@NotNull PsiClass psiClass, @NotNull final ClassData classData) {
         do {
             for (PsiField psiField : psiClass.getFields()) {
                 if (psiField.hasModifierProperty(STATIC)) { // skip static fields
                     continue;
                 }
                 String typeText = psiField.getType().getPresentableText();
-                String contendedGroup = fetchContendedGroup(psiField, "sun.misc.Contended");
-                if (contendedGroup == null) {
-                    contendedGroup = fetchContendedGroup(psiField, "jdk.internal.vm.annotation.Contended");
-                }
+                String contendedGroup = determineContendedGroup(psiField);
                 boolean isContended = contendedGroup != null;
                 FieldData fieldData = new FieldData(null, -1L, psiClass.getQualifiedName(), psiField.getName(), typeText, isContended, contendedGroup);
                 classData.addField(fieldData);
             }
             classData.addSuperClass(psiClass.getQualifiedName());
         } while ((psiClass = psiClass.getSuperClass()) != null);
-        return classData;
+    }
+
+    @Nullable
+    private static String determineContendedGroup(@NotNull PsiField psiField) {
+        String contendedGroup = fetchContendedGroup(psiField, "sun.misc.Contended");
+        if (contendedGroup == null) {
+            contendedGroup = fetchContendedGroup(psiField, "jdk.internal.vm.annotation.Contended");
+        }
+        return contendedGroup;
     }
 
     /**
