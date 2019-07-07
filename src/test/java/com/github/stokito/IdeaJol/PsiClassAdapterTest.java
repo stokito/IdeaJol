@@ -1,14 +1,14 @@
 package com.github.stokito.IdeaJol;
 
 import com.intellij.psi.PsiClass;
-import com.intellij.testFramework.fixtures.LightCodeInsightFixtureTestCase;
+import com.intellij.testFramework.fixtures.LightJavaCodeInsightFixtureTestCase;
 import org.openjdk.jol.info.ClassData;
 import org.openjdk.jol.info.FieldData;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PsiClassAdapterTest extends LightCodeInsightFixtureTestCase {
+public class PsiClassAdapterTest extends LightJavaCodeInsightFixtureTestCase {
     public void testCreateClassDataFromPsiClass() {
         myFixture.configureByText("PackingFields.java", "public class PackingFields {\n" +
                 "    boolean bo1, bo2;\n" +
