@@ -4,14 +4,18 @@
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
     <idea-version since-build="182.0"/>
     <category>Profiling</category>
+    <category>Inspection</category>
     <description>
         <![CDATA[
         <p>
-        <a href="https://openjdk.java.net/projects/code-tools/jol/">jol</a> is the tiny toolbox to analyze object layout schemes in JVMs.
+        <a href="https://openjdk.java.net/projects/code-tools/jol/">Java Object Layout (JOL)</a> is the tiny toolbox to analyze in memory object layout schemes in JVMs.
         It allows you to make an estimate how much memory the object takes. This allows to make a simplest but most efficient performance improvements.
         Just check your DTOs if they fit into 64 bytes of processor's cache line.
         </p>
         <p>For example, in HotSpot VM on 64x processor an empty string "" takes 40 bytes i.e. 24 bytes for String object itself + 16 bytes for an internal empty char array.
+        </p>
+        <p>
+        <a href="https://github.com/stokito/IdeaJol">Source code on GitHub</a>
         </p>
     ]]>
     </description>
@@ -42,6 +46,7 @@
                          groupPath="Java"
                          groupName="Memory"
                          enabledByDefault="true"
+                         language="JAVA"
                          level="WARNING"
                          implementationClass="com.github.stokito.IdeaJol.inspection.JolInspection"/>
     </extensions>
