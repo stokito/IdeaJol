@@ -174,6 +174,10 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
             return;
         }
         String className = (String) jolForm.tblObjectLayout.getModel().getValueAt(fieldIndex, 3);
+        // for padding/gap the class name is null
+        if (className == null) {
+            return;
+        }
         String fieldName = (String) jolForm.tblObjectLayout.getModel().getValueAt(fieldIndex, 4);
         PsiField psiField = findFieldInHierarchy(className, fieldName);
         if (psiField != null) {
