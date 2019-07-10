@@ -127,13 +127,13 @@ public class JolInspection extends AbstractBaseUastLocalInspectionTool {
         layouterComboBox.addActionListener(e -> selectedLayouter = layouterComboBox.getSelectedIndex());
         layouterComboBox.setToolTipText("Almost everywhere used HotSpot 64x COOPS. Raw layouter shows size of the fields themselves");
 
-        final ListTable businessLogicClassSuffixesTable = new ListTable(new ListWrappingTableModel(businessLogicClassSuffixes, "Business Logic Class Suffixes"));
+        final ListTable businessLogicClassSuffixesTable = new ListTable(new ListWrappingTableModel(businessLogicClassSuffixes, "Suffixes of ignored business logic classes"));
         final JPanel businessLogicClassSuffixesTablePanel = UiUtils.createAddRemovePanel(businessLogicClassSuffixesTable);
 
         return new FormBuilder()
                 .addLabeledComponent("Memory size threshold", sizeThresholdEditor)
                 .addLabeledComponent("Layouter", layouterComboBox)
-                .addComponent(businessLogicClassSuffixesTablePanel)
+                .addComponentFillVertically(businessLogicClassSuffixesTablePanel, 0)
                 .getPanel();
     }
 }
