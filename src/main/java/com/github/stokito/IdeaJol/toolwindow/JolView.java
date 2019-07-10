@@ -165,6 +165,10 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
 
     private void navigateToFieldInEditor(@NotNull ListSelectionEvent e) {
         int fieldIndex = jolForm.tblObjectLayout.getSelectionModel().getLeadSelectionIndex();
+        // first row is always object header
+        if (fieldIndex == 0) {
+            return;
+        }
         // on reset of model the selected index can be more than new count of rows
         if (fieldIndex == -1 || fieldIndex > jolForm.tblObjectLayout.getModel().getRowCount() - 1) {
             return;
