@@ -12,6 +12,7 @@ import com.intellij.util.ui.FormBuilder;
 import com.siyeh.ig.ui.UiUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.uast.UClass;
 import org.openjdk.jol.info.ClassData;
 import org.openjdk.jol.info.ClassLayout;
 import org.openjdk.jol.layouters.Layouter;
@@ -25,7 +26,7 @@ import static com.github.stokito.IdeaJol.Layouters.LAYOUTERS;
 import static com.intellij.codeInspection.ProblemHighlightType.WEAK_WARNING;
 import static java.util.Arrays.asList;
 
-public class JolInspection extends AbstractBaseJavaLocalInspectionTool {
+public class JolInspection extends AbstractBaseUastLocalInspectionTool {
     private static final LocalQuickFix SHOW_JOL_QUICK_FIX = new ShowJolQuickFix();
 
     @SuppressWarnings("WeakerAccess")
@@ -41,7 +42,7 @@ public class JolInspection extends AbstractBaseJavaLocalInspectionTool {
 
     @Nullable
     @Override
-    public ProblemDescriptor[] checkClass(@NotNull PsiClass aClass, @NotNull InspectionManager manager, boolean isOnTheFly) {
+    public ProblemDescriptor[] checkClass(@NotNull UClass aClass, @NotNull InspectionManager manager, boolean isOnTheFly) {
         if (isNotUsualClass(aClass) || isBusinessLogicClass(aClass)) {
             return null;
         }
@@ -70,8 +71,8 @@ public class JolInspection extends AbstractBaseJavaLocalInspectionTool {
         return aClass.getNameIdentifier() == null ||
                 aClass.isAnnotationType() ||
                 aClass.isEnum() ||
-                aClass.isInterface() ||
-                !aClass.isPhysical();
+                aClass.isInterface();
+//FIXME: for kotlin this always true                || !aClass.isPhysical();
     }
 
     private boolean isBusinessLogicClass(PsiClass aClass) {

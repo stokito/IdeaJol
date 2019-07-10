@@ -29,6 +29,7 @@
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html on how to target different products -->
     <version>1.6.1</version>
     <vendor email="stokito@gmail.com" url="https://stokito.com/">Sergey Ponomarev</vendor>
+    <depends>com.intellij.modules.lang</depends>
     <depends>com.intellij.modules.java</depends>
     <actions>
         <action id="showObjectLayout" class="com.github.stokito.IdeaJol.ShowObjectLayoutAction" text="Show Object Layout" description="Show JVM Object Layout of the current class" icon="/ram-13x13.png">
@@ -46,7 +47,7 @@
                          groupPath="Java"
                          groupName="Memory"
                          enabledByDefault="true"
-                         language="JAVA"
+                         language="UAST"
                          level="WARNING"
                          implementationClass="com.github.stokito.IdeaJol.inspection.JolInspection"/>
     </extensions>
