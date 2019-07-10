@@ -2,7 +2,7 @@
     <name>JOL Java Object Layout</name>
     <id>JOL</id>
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-    <idea-version since-build="182.0"/>
+    <idea-version since-build="192.0"/>
     <category>Profiling</category>
     <category>Inspection</category>
     <description>
@@ -20,14 +20,17 @@
     ]]>
     </description>
     <change-notes><![CDATA[
-      v1.6.1 Update JOL to v0.10 and fix of minor bugs<br>
-      v1.6.0 Added an inspection to report about to big classes.<br>
-      v1.5.0 show layout in table instead of raw text.<br>
-      v1.3.0 first published version.<br>
+      <ul>
+      <li>v1.7.0 Support of Kotlin classes. Converted to UAST and fixed minor bugs</li>
+      <li>v1.6.1 Update JOL to v0.10 and fix of minor bugs</li>
+      <li>v1.6.0 Added an inspection to report about to big classes.</li>
+      <li>v1.5.0 show layout in table instead of raw text.</li>
+      <li>v1.3.0 first published version.</li>
+      <ul>
     ]]>
     </change-notes>
     <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html on how to target different products -->
-    <version>1.6.1</version>
+    <version>1.7.0</version>
     <vendor email="stokito@gmail.com" url="https://stokito.com/">Sergey Ponomarev</vendor>
     <depends>com.intellij.modules.lang</depends>
     <depends>com.intellij.modules.java</depends>
