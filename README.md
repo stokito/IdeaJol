@@ -20,7 +20,7 @@ Set a cursor into a class name and then press `Code / Show Object Layout` and yo
 
 ### Inspection
 The plugin provides an inspection to see most big classes and it's enabled by default.
-You can find the inspection by path `Java | Memory | Class have too big memory footprint` to configure or disable it. 
+You can find the inspection by path `Java | Memory | Class has too big memory footprint` to configure or disable it. 
 
 Please rank the [Plugin](https://plugins.jetbrains.com/plugin/10953-java-object-layout) to make it more searchable.
 

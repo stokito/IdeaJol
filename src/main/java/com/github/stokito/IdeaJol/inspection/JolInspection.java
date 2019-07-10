@@ -56,7 +56,7 @@ public class JolInspection extends AbstractBaseUastLocalInspectionTool {
             // this shouldn't happen because we already have this check inside of isNotUsualClass()
             return null;
         }
-        ProblemDescriptor problem = manager.createProblemDescriptor(navigateTo, "Class have too big memory footprint", SHOW_JOL_QUICK_FIX, WEAK_WARNING, isOnTheFly);
+        ProblemDescriptor problem = manager.createProblemDescriptor(navigateTo, "Class has too big memory footprint", SHOW_JOL_QUICK_FIX, WEAK_WARNING, isOnTheFly);
         return new ProblemDescriptor[]{problem};
     }
 
