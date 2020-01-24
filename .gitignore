@@ -2,7 +2,7 @@
 .idea/workspace.xml
 .idea/usage.statistics.xml
 .idea/tasks.xml
-.idea/libraries
+#.idea/libraries
 .idea/modules.xml
 .idea/misc.xml
 sandbox
