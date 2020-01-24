@@ -21,10 +21,10 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="jol-cli" target="1.6" />
-      <module name="jol-core" target="1.6" />
-      <module name="jol-parent" target="1.5" />
-      <module name="jol-samples" target="1.6" />
+      <module name="jol-cli" target="1.7" />
+      <module name="jol-core" target="1.7" />
+      <module name="jol-parent" target="1.7" />
+      <module name="jol-samples" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -21,6 +21,6 @@
         <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="org.openjdk.jol:jol-core:0.10-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="com.github.stokito.jol:jol-core:0.10" level="project" />
   </component>
 </module>
