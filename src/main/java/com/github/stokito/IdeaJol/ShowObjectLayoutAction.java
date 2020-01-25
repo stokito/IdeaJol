@@ -5,6 +5,7 @@ import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.pom.Navigatable;
 import com.intellij.psi.PsiClass;
@@ -34,7 +35,10 @@ public class ShowObjectLayoutAction extends AnAction {
 //        assert psiClass != null;
         try {
             JolView.getInstance(project).showLayoutForClass(psiClass);
-            ToolWindowManager.getInstance(project).getToolWindow("JOL").activate(null);
+            ToolWindow toolWindow = ToolWindowManager.getInstance(project).getToolWindow("JOL");
+            if (toolWindow != null) {
+                toolWindow.activate(null);
+            }
         } catch (Exception ex) {
             LOG.error("Unable to generate layout", ex);
         }
