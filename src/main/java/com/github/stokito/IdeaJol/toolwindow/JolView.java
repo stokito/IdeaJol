@@ -39,15 +39,13 @@ import static java.lang.Boolean.TRUE;
 import static javax.swing.ListSelectionModel.SINGLE_SELECTION;
 
 public class JolView extends SimpleToolWindowPanel implements Disposable {
-    protected Project project;
-    protected ToolWindowManager toolWindowManager;
+    private Project project;
 
     private SmartPsiElementPointer<PsiClass> psiClass;
     private JolForm jolForm = new JolForm();
 
-    public JolView(@NotNull ToolWindowManager toolWindowManager, @NotNull Project project) {
+    public JolView(@NotNull Project project) {
         super(true, true);
-        this.toolWindowManager = toolWindowManager;
         this.project = project;
         setupUI();
     }
@@ -65,7 +63,6 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
     @Override
     public void dispose() {
         project = null;
-        toolWindowManager = null;
         psiClass = null;
         jolForm = null;
     }
