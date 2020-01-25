@@ -1,94 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-        xmlns="http://www.w3.org/2000/svg"
-        id="ramSmall"
-        viewBox="0 0 170 95.639"
->
-    <g id="layer1" transform="translate(-397.98 -768.26)">
-        <g
-                id="ram"
-                transform="matrix(1.9831 -.00040863 .00040863 1.9831 545.74 -217.55)"
-        >
-            <path
-                    id="border"
-                    style="stroke-linejoin:round;fill-rule:evenodd;stroke:#165016;stroke-linecap:round;stroke-width:5;fill:#217821"
-                    d="m-72.111 499.64h267.59v5.4 5.39 5.39 5.4 5.39s-4 2.7-4 5.39c0 2.7 4 5.4 4 5.4v5.39h-4.18-4.18-4.18-4.18-4.18-4.18-4.18-4.19-4.18-4.18-4.18-4.18-4.18-4.18-4.18-4.18-4.19-4.18-4.18-4.18-4.18-4.18-4.183-4.181-4.181-4.181-4.182-4.181-4.181-4.181-4.181-4.181-4.182-4.181-4.181-4.181-4.181-4.181-4.182-4.181-4.181-4.181s-2.091-4-4.181-4c-2.091 0-4.181 4-4.181 4h-4.1815-4.1812-4.1812-4.1811-4.1812-4.1808-4.182-4.181-4.181-4.181-4.181-4.181-4.182-4.181-4.181-4.181-4.181-4.181-4.182-4.181v-5.39s3.92-2.7 3.92-5.4c0-2.69-3.92-5.39-3.92-5.39v-5.39-5.4-5.39-5.39-5.4z"
-            />
-            <rect
-                    id="pin1"
-                    style="fill-rule:evenodd;fill:#a0892c"
-                    height="8.5305"
-                    width="6.9166"
-                    y="536.79"
-                    x="-58.838"
-            />
-            <rect
-                    id="pin2"
-                    style="fill-rule:evenodd;fill:#a0892c"
-                    height="8.5305"
-                    width="6.9166"
-                    y="536.79"
-                    x="-46.838"
-            />
-            <rect
-                    id="pin3"
-                    style="fill-rule:evenodd;fill:#a0892c"
-                    height="8.5305"
-                    width="6.9166"
-                    y="536.79"
-                    x="-34.838"
-            />
-            <rect
-                    id="pin4"
-                    style="fill-rule:evenodd;fill:#a0892c"
-                    height="8.5305"
-                    width="6.9166"
-                    y="536.79"
-                    x="-22.838"
-            />
-            <rect
-                    id="pin5"
-                    style="fill-rule:evenodd;fill:#a0892c"
-                    height="8.5305"
-                    width="6.9166"
-                    y="536.79"
-                    x="-10.838"
-            />
-
-            <rect
-                    id="pin6"
-                    style="fill-rule:evenodd;fill:#a0892c"
-                    height="8.5305"
-                    width="6.9166"
-                    y="536.79"
-                    x="1.1623"
-            />
-
-            <rect
-                    id="chip1"
-                    style="stroke-linejoin:round;fill-rule:evenodd;stroke:#333333;stroke-linecap:round;stroke-width:5;fill:#4d4d4d"
-                    height="24.208"
-                    width="14"
-                    y="507.51"
-                    x="-60"
-            />
-            <rect
-                    id="chip2"
-                    style="stroke-linejoin:round;fill-rule:evenodd;stroke:#333333;stroke-linecap:round;stroke-width:5;fill:#4d4d4d"
-                    height="24.208"
-                    width="14"
-                    y="507.51"
-                    x="-35"
-            />
-            <rect
-                    id="chip3"
-                    style="stroke-linejoin:round;fill-rule:evenodd;stroke:#333333;stroke-linecap:round;stroke-width:5;fill:#4d4d4d"
-                    height="24.208"
-                    width="14"
-                    y="507.51"
-                    x="-10"
-            />
-
-        </g>
-    </g>
+<?xml version="1.0"?>
+<svg id="ramSmall"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 95.639">
+	<g id="layer1" transform="translate(-397.98 -768.26)">
+		<g id="ram" transform="matrix(1.9831 -.00040863 .00040863 1.9831 545.74 -217.55)">
+			<path id="border" style="stroke-linejoin:round;fill-rule:evenodd;stroke:#165016;stroke-linecap:round;stroke-width:5;fill:#217821"
+				d="m-72.111 499.64h267.59v5.4 5.39 5.39 5.4 5.39s-4 2.7-4 5.39c0 2.7 4 5.4 4 5.4v5.39h-4.18-4.18-4.18-4.18-4.18-4.18-4.18-4.19-4.18-4.18-4.18-4.18-4.18-4.18-4.18-4.18-4.19-4.18-4.18-4.18-4.18-4.18-4.183-4.181-4.181-4.181-4.182-4.181-4.181-4.181-4.181-4.181-4.182-4.181-4.181-4.181-4.181-4.181-4.182-4.181-4.181-4.181s-2.091-4-4.181-4c-2.091 0-4.181 4-4.181 4h-4.1815-4.1812-4.1812-4.1811-4.1812-4.1808-4.182-4.181-4.181-4.181-4.181-4.181-4.182-4.181-4.181-4.181-4.181-4.181-4.182-4.181v-5.39s3.92-2.7 3.92-5.4c0-2.69-3.92-5.39-3.92-5.39v-5.39-5.4-5.39-5.39-5.4z"/>
+			<rect id="pin1" style="fill-rule:evenodd;fill:#a0892c" height="8.5305" width="6.9166" y="536.79" x="-58.838"/>
+			<rect id="pin2" style="fill-rule:evenodd;fill:#a0892c" height="8.5305" width="6.9166" y="536.79" x="-46.838"/>
+			<rect id="pin3" style="fill-rule:evenodd;fill:#a0892c" height="8.5305" width="6.9166" y="536.79" x="-34.838"/>
+			<rect id="pin4" style="fill-rule:evenodd;fill:#a0892c" height="8.5305" width="6.9166" y="536.79" x="-22.838"/>
+			<rect id="pin5" style="fill-rule:evenodd;fill:#a0892c" height="8.5305" width="6.9166" y="536.79" x="-10.838"/>
+			<rect id="pin6" style="fill-rule:evenodd;fill:#a0892c" height="8.5305" width="6.9166" y="536.79" x="1.1623"/>
+			<rect id="chip1" style="stroke-linejoin:round;fill-rule:evenodd;stroke:#333333;stroke-linecap:round;stroke-width:5;fill:#4d4d4d" height="24.208" width="14" y="507.51" x="-60"/>
+			<rect id="chip2" style="stroke-linejoin:round;fill-rule:evenodd;stroke:#333333;stroke-linecap:round;stroke-width:5;fill:#4d4d4d" height="24.208" width="14" y="507.51" x="-35"/>
+			<rect id="chip3" style="stroke-linejoin:round;fill-rule:evenodd;stroke:#333333;stroke-linecap:round;stroke-width:5;fill:#4d4d4d" height="24.208" width="14" y="507.51" x="-10"/>
+		</g>
+	</g>
 </svg>
