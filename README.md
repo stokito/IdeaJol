@@ -20,7 +20,15 @@ Set a cursor into a class name and then press `Code / Show Object Layout` and yo
 
 ### Inspection
 The plugin provides an inspection to see most big classes and it's enabled by default.
-You can find the inspection by path `Java | Memory | Class has too big memory footprint` to configure or disable it. 
+You can find the inspection by path `Java | Memory | JOL: Class has too big memory footprint` to configure or disable it. 
 
 Please rank the [Plugin](https://plugins.jetbrains.com/plugin/10953-java-object-layout) to make it more searchable.
 
+## Build the plugin
+The plugin uses a patched version of jol-core.jar so you must build it first:
+
+    git clone https://github.com/stokito/jol.git
+    git checkout extend_api
+    mvn install
+
+Then open the IdeaJol project in IntelliJ and run it.
