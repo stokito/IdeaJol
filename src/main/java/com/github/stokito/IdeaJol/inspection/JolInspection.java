@@ -4,6 +4,7 @@ import com.github.stokito.IdeaJol.PsiClassAdapter;
 import com.intellij.codeInspection.*;
 import com.intellij.codeInspection.ui.ListTable;
 import com.intellij.codeInspection.ui.ListWrappingTableModel;
+import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.ui.ComboBox;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
@@ -25,8 +26,11 @@ import java.util.stream.Stream;
 import static com.github.stokito.IdeaJol.Layouters.LAYOUTERS;
 import static com.intellij.codeInspection.ProblemHighlightType.WEAK_WARNING;
 import static java.util.Arrays.asList;
+import static org.jetbrains.uast.UElementKt.getSourcePsiElement;
 
 public class JolInspection extends AbstractBaseUastLocalInspectionTool {
+    private static final Logger LOG = Logger.getInstance(JolInspection.class);
+
     private static final LocalQuickFix SHOW_JOL_QUICK_FIX = new ShowJolQuickFix();
 
     @SuppressWarnings("WeakerAccess")
@@ -46,12 +50,17 @@ public class JolInspection extends AbstractBaseUastLocalInspectionTool {
         if (isNotUsualClass(aClass) || isBusinessLogicClass(aClass)) {
             return null;
         }
+        // Workaround for #20 NPE
+        if (aClass.getQualifiedName() == null) {
+//            LOG.warn("The class doesn't have a qualified name: " + aClass);
+            return null;
+        }
         ClassData classData = PsiClassAdapter.createClassDataFromPsiClass(aClass);
         ClassLayout layout = getLayouter().layout(classData);
         if (layout.instanceSize() <= sizeThreshold) {
             return null;
         }
-        PsiElement navigateTo = aClass.getNameIdentifier();
+        PsiElement navigateTo = getSourcePsiElement(aClass);
         if (navigateTo == null) {
             // this shouldn't happen because we already have this check inside of isNotUsualClass()
             return null;

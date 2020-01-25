@@ -14,6 +14,7 @@ public class PsiClassAdapter {
      */
     @NotNull
     public static ClassData createClassDataFromPsiClass(@NotNull PsiClass psiClass) {
+        assert psiClass.getQualifiedName() != null : "The class doesn't have a qualified name: " + psiClass;
         ClassData classData = new ClassData(psiClass.getQualifiedName());
         if (psiClass.getSuperClass() != null) {
             ClassData supperClassData = createClassDataFromPsiClass(psiClass.getSuperClass());
@@ -35,6 +36,7 @@ public class PsiClassAdapter {
                 FieldData fieldData = new FieldData(null, -1L, psiClass.getQualifiedName(), psiField.getName(), typeText, isContended, contendedGroup);
                 classData.addField(fieldData);
             }
+            assert psiClass.getQualifiedName() != null : "The class doesn't have a qualified name: " + psiClass;
             classData.addSuperClass(psiClass.getQualifiedName());
         } while ((psiClass = psiClass.getSuperClass()) != null);
     }

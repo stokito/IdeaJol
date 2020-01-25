@@ -76,7 +76,7 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         jolForm.lblClassName.setText(psiClass.getName());
         jolForm.lblClassName.setIcon(psiClass.getIcon(0));
         jolForm.copyButton.setEnabled(true);
-        showLayoutForSelectedClass(psiClass);
+        showLayoutForSelectedClass();
     }
 
     @NotNull
@@ -85,7 +85,11 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         return LAYOUTERS[layouterIndex];
     }
 
-    private void showLayoutForSelectedClass(@NotNull PsiClass psiClass) {
+    private void showLayoutForSelectedClass() {
+        PsiClass psiClass = getPsiClass();
+        if (psiClass == null) {
+            return;
+        }
         ClassLayout classLayout = calcClassLayout(psiClass);
         ArrayList<FieldLayout> objectLayouts = collectObjectLayouts(classLayout);
 
@@ -198,7 +202,6 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
             PsiClass parentClass = (PsiClass) field.getParent();
             String parentClassName = parentClass.getName();
             assert parentClassName != null;
-            assert field.getName() != null;
             if (parentClassName.equals(className) && field.getName().equals(fieldName)) {
                 return field;
             }
@@ -207,20 +210,18 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
     }
 
     private void layoutOptionsActionPerformed(@NotNull ActionEvent e) {
-        PsiClass psiClass = getPsiClass();
-        if (psiClass == null) {
-            return;
-        }
-        showLayoutForSelectedClass(psiClass);
+        showLayoutForSelectedClass();
     }
 
     /** Safely get a PsiClass - it can be already removed then we'll keep layout but strike out class name label */
     @Nullable
     private PsiClass getPsiClass() {
         PsiClass psiClassElement = psiClass != null ? psiClass.getElement() : null;
-        if (psiClassElement == null) {
+        // QualifiedName == null is a workaround for #20
+        if (psiClassElement == null || psiClassElement.getQualifiedName() == null) {
             classLabelFontStrike(TRUE);
             psiClass = null;
+            return null;
         }
         return psiClassElement;
     }
@@ -229,8 +230,8 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         @SuppressWarnings("unchecked")
         Map<TextAttribute, Object> fontAttributes = (Map<TextAttribute, Object>) jolForm.lblClassName.getFont().getAttributes();
         fontAttributes.put(STRIKETHROUGH, strikethroughOn);
-        Font strikedFont = new Font(fontAttributes);
-        jolForm.lblClassName.setFont(strikedFont);
+        Font strikethroughFont = new Font(fontAttributes);
+        jolForm.lblClassName.setFont(strikethroughFont);
     }
 
     private void copyObjectLayoutToClipboard(@NotNull ActionEvent e) {
