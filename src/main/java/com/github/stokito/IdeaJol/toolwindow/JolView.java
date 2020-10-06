@@ -108,25 +108,20 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         ArrayList<FieldLayout> objectLines = new ArrayList<>(classLayout.fields().size() + 8);
         objectLines.add(new FieldLayoutGap(0, classLayout.headerSize(), "(object header)"));
         long nextFree = classLayout.headerSize();
-        long interLoss = 0;
-        long exterLoss = 0;
         for (FieldLayout fieldLayout : classLayout.fields()) {
             if (fieldLayout.offset() > nextFree) {
                 long fieldLayoutSize = fieldLayout.offset() - nextFree;
                 objectLines.add(new FieldLayoutGap(nextFree, fieldLayoutSize, "(alignment/padding gap)"));
-                interLoss += fieldLayoutSize;
             }
             objectLines.add(fieldLayout);
             nextFree = fieldLayout.offset() + fieldLayout.size();
         }
         long sizeOf = classLayout.instanceSize();
         if (sizeOf != nextFree) {
-            exterLoss = sizeOf - nextFree;
-            objectLines.add(new FieldLayoutGap(nextFree, exterLoss, "(loss due to the next object alignment)"));
+            objectLines.add(new FieldLayoutGap(nextFree, classLayout.getLossesExternal(), "(loss due to the next object alignment)"));
         }
-        long totalLoss = interLoss + exterLoss;
 
-        showTotalInstanceSize(interLoss, exterLoss, sizeOf, totalLoss);
+        showTotalInstanceSize(classLayout.getLossesInternal(), classLayout.getLossesExternal(), sizeOf, classLayout.getLossesTotal());
         return objectLines;
     }
 
