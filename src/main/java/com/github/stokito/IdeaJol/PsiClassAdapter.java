@@ -33,7 +33,7 @@ public class PsiClassAdapter {
                 String typeText = psiField.getType().getPresentableText();
                 String contendedGroup = determineContendedGroup(psiField);
                 boolean isContended = contendedGroup != null;
-                FieldData fieldData = new FieldData(null, psiClass.getQualifiedName(), psiField.getName(), typeText, isContended, contendedGroup);
+                FieldData fieldData = FieldData.create(psiClass.getQualifiedName(), psiField.getName(), typeText, isContended, contendedGroup);
                 classData.addField(fieldData);
             }
             assert psiClass.getQualifiedName() != null : "The class doesn't have a qualified name: " + psiClass;
@@ -43,9 +43,9 @@ public class PsiClassAdapter {
 
     @Nullable
     private static String determineContendedGroup(@NotNull PsiField psiField) {
-        String contendedGroup = fetchContendedGroup(psiField, "sun.misc.Contended");
+        String contendedGroup = fetchContendedGroup(psiField, "jdk.internal.vm.annotation.Contended");
         if (contendedGroup == null) {
-            contendedGroup = fetchContendedGroup(psiField, "jdk.internal.vm.annotation.Contended");
+            contendedGroup = fetchContendedGroup(psiField, "sun.misc.Contended");
         }
         return contendedGroup;
     }
