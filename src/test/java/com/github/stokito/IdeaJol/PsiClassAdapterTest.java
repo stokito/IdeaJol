@@ -5,7 +5,6 @@ import com.intellij.testFramework.fixtures.LightJavaCodeInsightFixtureTestCase;
 import org.openjdk.jol.info.ClassData;
 import org.openjdk.jol.info.FieldData;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PsiClassAdapterTest extends LightJavaCodeInsightFixtureTestCase {
@@ -24,30 +23,29 @@ public class PsiClassAdapterTest extends LightJavaCodeInsightFixtureTestCase {
         PsiClass psiClass = myFixture.findClass("PackingFields");
         System.out.println(psiClass.getText());
         ClassData classData = PsiClassAdapter.createClassDataFromPsiClass(psiClass);
-        List<FieldData> fieldDatas = new ArrayList<>(classData.fields());
-        assertEquals(16, fieldDatas.size());
-        assertField(fieldDatas, 0, "bo1", "boolean", "PackingFields");
-        assertField(fieldDatas, 1, "bo2", "boolean", "PackingFields");
-        assertField(fieldDatas, 2, "b1", "byte", "PackingFields");
-        assertField(fieldDatas, 3, "b2", "byte", "PackingFields");
-        assertField(fieldDatas, 4, "c1", "char", "PackingFields");
-        assertField(fieldDatas, 5, "c2", "char", "PackingFields");
-        assertField(fieldDatas, 6, "d1", "double", "PackingFields");
-        assertField(fieldDatas, 7, "d2", "double", "PackingFields");
-        assertField(fieldDatas, 8, "f1", "float", "PackingFields");
-        assertField(fieldDatas, 9, "f2", "float", "PackingFields");
-        assertField(fieldDatas, 10, "i1", "int", "PackingFields");
-        assertField(fieldDatas, 11, "i2", "int", "PackingFields");
-        assertField(fieldDatas, 12, "l1", "long", "PackingFields");
-        assertField(fieldDatas, 13, "l2", "long", "PackingFields");
-        assertField(fieldDatas, 14, "s1", "short", "PackingFields");
-        assertField(fieldDatas, 15, "s2", "short", "PackingFields");
+        assertEquals(16, classData.fields().size());
+        assertField(classData, 0, "bo1", "boolean", "PackingFields");
+        assertField(classData, 1, "bo2", "boolean", "PackingFields");
+        assertField(classData, 2, "b1", "byte", "PackingFields");
+        assertField(classData, 3, "b2", "byte", "PackingFields");
+        assertField(classData, 4, "c1", "char", "PackingFields");
+        assertField(classData, 5, "c2", "char", "PackingFields");
+        assertField(classData, 6, "d1", "double", "PackingFields");
+        assertField(classData, 7, "d2", "double", "PackingFields");
+        assertField(classData, 8, "f1", "float", "PackingFields");
+        assertField(classData, 9, "f2", "float", "PackingFields");
+        assertField(classData, 10, "i1", "int", "PackingFields");
+        assertField(classData, 11, "i2", "int", "PackingFields");
+        assertField(classData, 12, "l1", "long", "PackingFields");
+        assertField(classData, 13, "l2", "long", "PackingFields");
+        assertField(classData, 14, "s1", "short", "PackingFields");
+        assertField(classData, 15, "s2", "short", "PackingFields");
     }
 
-    private void assertField(List<FieldData> fieldDatas, int index, String name, String typeClass, String hostClass) {
-        assertEquals(name, fieldDatas.get(index).name());
-        assertEquals(typeClass, fieldDatas.get(index).typeClass());
-        assertEquals(hostClass, fieldDatas.get(index).hostClass());
+    private void assertField(ClassData classData, int index, String name, String typeClass, String hostClass) {
+        assertEquals(name, classData.fields().get(index).name());
+        assertEquals(typeClass, classData.fields().get(index).typeClass());
+        assertEquals(hostClass, classData.fields().get(index).hostClass());
     }
 
 }
