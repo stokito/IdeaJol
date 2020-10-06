@@ -116,21 +116,20 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
             objectLines.add(fieldLayout);
             nextFree = fieldLayout.offset() + fieldLayout.size();
         }
-        long sizeOf = classLayout.instanceSize();
-        if (sizeOf != nextFree) {
+        if (classLayout.instanceSize() != nextFree) {
             objectLines.add(new FieldLayoutGap(nextFree, classLayout.getLossesExternal(), "(loss due to the next object alignment)"));
         }
 
-        showTotalInstanceSize(classLayout.getLossesInternal(), classLayout.getLossesExternal(), sizeOf, classLayout.getLossesTotal());
+        showTotalInstanceSize(classLayout);
         return objectLines;
     }
 
-    private void showTotalInstanceSize(long interLoss, long exterLoss, long sizeOf, long totalLoss) {
-        jolForm.lblInstanceSize.setText(Long.toString(sizeOf));
-        changeLabelInstanceSizeColorIfLargerThanCacheLine(sizeOf);
-        jolForm.lblLossesInternal.setText(Long.toString(interLoss));
-        jolForm.lblLossesExternal.setText(Long.toString(exterLoss));
-        jolForm.lblLossesTotal.setText(Long.toString(totalLoss));
+    private void showTotalInstanceSize(ClassLayout classLayout) {
+        jolForm.lblInstanceSize.setText(Long.toString(classLayout.instanceSize()));
+        changeLabelInstanceSizeColorIfLargerThanCacheLine(classLayout.instanceSize());
+        jolForm.lblLossesInternal.setText(Long.toString( classLayout.getLossesInternal()));
+        jolForm.lblLossesExternal.setText(Long.toString(classLayout.getLossesExternal()));
+        jolForm.lblLossesTotal.setText(Long.toString(classLayout.getLossesTotal()));
     }
 
     /** Processor cache line is almost always 64 bytes */
