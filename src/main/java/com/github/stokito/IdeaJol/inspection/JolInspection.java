@@ -14,6 +14,7 @@ import com.siyeh.ig.ui.UiUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.uast.UClass;
+import org.openjdk.jol.datamodel.X86_64_COOPS_DataModel;
 import org.openjdk.jol.info.ClassData;
 import org.openjdk.jol.info.ClassLayout;
 import org.openjdk.jol.layouters.Layouter;
@@ -33,16 +34,29 @@ public class JolInspection extends AbstractBaseUastLocalInspectionTool {
 
     private static final LocalQuickFix SHOW_JOL_QUICK_FIX = new ShowJolQuickFix();
 
+    /**
+     * Suffixes of ignored business logic classes
+     */
     @SuppressWarnings("WeakerAccess")
     public List<String> businessLogicClassSuffixes = new ArrayList<>(asList(
             "Exception", "Test", "Spec", "Impl", "Dao", "Utils",
             "Controller", "Service", "Strategy", "Servlet", "Adapter", "Factory", "Provider",
             "Handler", "Registry", "Filter", "Interceptor", "Executor"
     ));
+
+    /**
+     * Default 5 is Hotspot COOPS
+     * @see X86_64_COOPS_DataModel
+     */
     @SuppressWarnings("WeakerAccess")
-    public int selectedLayouter = 5; // Hotspot COOPS
+    public int selectedLayouter = 5;
+
+    /**
+     * Class memory size threshold (CPU cache line is 64)
+     * Default 64 is a one cache line
+     */
     @SuppressWarnings("WeakerAccess")
-    public int sizeThreshold = 64; // cache line
+    public int sizeThreshold = 64;
 
     @Nullable
     @Override
@@ -88,7 +102,6 @@ public class JolInspection extends AbstractBaseUastLocalInspectionTool {
         return endsWithAny(aClass.getName(), businessLogicClassSuffixes);
     }
 
-    // can be replaced with commons.lang3.StringUtils.endsWithAny
     private boolean endsWithAny(String className, List<String> businessLogicClassSuffixes) {
         if (className == null) return false;
         for (String suffix : businessLogicClassSuffixes) {
