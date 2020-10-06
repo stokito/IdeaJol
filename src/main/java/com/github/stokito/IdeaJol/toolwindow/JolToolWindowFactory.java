@@ -12,6 +12,6 @@ public class JolToolWindowFactory implements ToolWindowFactory {
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
         JComponent jol = JolView.getInstance(project);
-        toolWindow.getContentManager().addContent(ContentFactory.SERVICE.getInstance().createContent(jol, "Object Layout", false));
+        toolWindow.getContentManager().addContent(ContentFactory.SERVICE.getInstance().createContent(jol, null, false));
     }
 }
