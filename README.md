@@ -51,3 +51,11 @@ The plugin provides an inspection to see most big classes. It's enabled by defau
 You can find the inspection by path `Java | Memory | JOL: Class has too big memory footprint` to configure or disable it. 
 
 Please rank the [Plugin](https://plugins.jetbrains.com/plugin/10953-java-object-layout) to make it more searchable.
+
+## Related projects
+
+Heap dump `*.hprof` files analysers:
+ * The IntelliJ IDEA has a built-in [heap dump analyser](https://www.jetbrains.com/help/idea/analyze-hprof-memory-snapshots.html#read-snapshot)
+ * Eclipse [Memory Analyzer (MAT)](https://www.eclipse.org/mat/)
+ * [VisualVM](https://visualvm.github.io/) can also monitor heap in real time. Based on NetBeans
+ * [Java Mission Control](https://github.com/openjdk/jmc)
