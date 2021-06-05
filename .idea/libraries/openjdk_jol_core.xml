@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="openjdk.jol.core" type="repository">
+    <properties maven-id="org.openjdk.jol:jol-core:0.14" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openjdk/jol/jol-core/0.14/jol-core-0.14.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
