@@ -11,7 +11,7 @@ class JolForm {
     JLabel lblInstanceSize;
     JLabel lblClassName;
     JPanel pnlToolbar;
-    JComboBox cmbDataModel;
+    JComboBox<String> cmbDataModel;
     JBTable tblObjectLayout;
     JPanel pnlInstanceSize;
     JLabel lblLossesInternal;
