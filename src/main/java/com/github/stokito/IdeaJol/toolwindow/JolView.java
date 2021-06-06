@@ -39,6 +39,7 @@ import static java.lang.Boolean.TRUE;
 import static javax.swing.ListSelectionModel.SINGLE_SELECTION;
 
 public class JolView extends SimpleToolWindowPanel implements Disposable {
+    private static final Logger LOG = Logger.getInstance("#com.github.stokito.IdeaJol.toolwindow.JolView");
     private Project project;
 
     private SmartPsiElementPointer<PsiClass> psiClass;

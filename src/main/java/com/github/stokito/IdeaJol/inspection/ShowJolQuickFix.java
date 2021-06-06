@@ -12,7 +12,7 @@ import com.intellij.psi.PsiIdentifier;
 import org.jetbrains.annotations.NotNull;
 
 public class ShowJolQuickFix implements LocalQuickFix {
-    private static final Logger LOG = Logger.getInstance(ShowJolQuickFix.class);
+    private static final Logger LOG = Logger.getInstance("#com.github.stokito.IdeaJol.inspection.ShowJolQuickFix");
 
     @NotNull
     @Override

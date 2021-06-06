@@ -30,7 +30,7 @@ import static java.util.Arrays.asList;
 import static org.jetbrains.uast.UElementKt.getSourcePsiElement;
 
 public class JolInspection extends AbstractBaseUastLocalInspectionTool {
-    private static final Logger LOG = Logger.getInstance(JolInspection.class);
+    private static final Logger LOG = Logger.getInstance("#com.github.stokito.IdeaJol.inspection.JolInspection");
 
     private static final LocalQuickFix SHOW_JOL_QUICK_FIX = new ShowJolQuickFix();
 
