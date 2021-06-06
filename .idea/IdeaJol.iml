@@ -9,18 +9,8 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/sandbox" />
     </content>
-    <orderEntry type="jdk" jdkName="IntelliJ IDEA IU-203.3645.34" jdkType="IDEA JDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/lib" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" />
-      </library>
-    </orderEntry>
-    <orderEntry type="library" name="org.openjdk.jol:jol-core:0.14-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="openjdk.jol.core" level="project" />
   </component>
 </module>
