@@ -5,7 +5,6 @@ import com.intellij.codeInspection.LocalQuickFix;
 import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiIdentifier;
@@ -28,8 +27,7 @@ public class ShowJolQuickFix implements LocalQuickFix {
         }
         try {
             PsiClass psiClass = (PsiClass) psiClassIdentifier.getParent();
-            JolView.getInstance(project).showLayoutForClass(psiClass);
-            ToolWindowManager.getInstance(project).getToolWindow("JOL").activate(null);
+            JolView.showJolToolWindow(project, psiClass);
         } catch (Exception ex) {
             LOG.error("Unable to generate layout", ex);
         }

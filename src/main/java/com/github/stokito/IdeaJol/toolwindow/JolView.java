@@ -7,6 +7,7 @@ import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.ide.CopyPasteManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.SimpleToolWindowPanel;
+import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiField;
@@ -241,7 +242,9 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         return layouter.layout(classData);
     }
 
-    public static JolView getInstance(@NotNull Project project) {
-        return ServiceManager.getService(project, JolView.class);
+    public static void showJolToolWindow(@NotNull Project project, @NotNull PsiClass psiClass) {
+        JolView jolView = ServiceManager.getService(project, JolView.class);
+        jolView.showLayoutForClass(psiClass);
+        ToolWindowManager.getInstance(project).getToolWindow("JOL").activate(null);
     }
 }
