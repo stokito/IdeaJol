@@ -13,6 +13,7 @@ import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiField;
 import com.intellij.psi.SmartPointerManager;
 import com.intellij.psi.SmartPsiElementPointer;
+import com.intellij.ui.content.Content;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.openjdk.jol.info.ClassData;
@@ -243,8 +244,18 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
     }
 
     public static void showJolToolWindow(@NotNull Project project, @NotNull PsiClass psiClass) {
-        JolView jolView = ServiceManager.getService(project, JolView.class);
-        jolView.showLayoutForClass(psiClass);
-        ToolWindowManager.getInstance(project).getToolWindow("JOL").activate(null);
+        try {
+            ToolWindow toolWindow = ToolWindowManager.getInstance(project).getToolWindow("JOL");
+            if (toolWindow != null) {
+                Content content = toolWindow.getContentManager().getContent(0);
+                if (content != null) {
+                    JolView jolView = (JolView) content.getComponent();
+                    jolView.showLayoutForClass(psiClass);
+                    toolWindow.activate(null);
+                }
+            }
+        } catch (Exception ex) {
+            LOG.error("Unable to generate layout", ex);
+        }
     }
 }
