@@ -3,15 +3,12 @@ package com.github.stokito.IdeaJol.inspection;
 import com.github.stokito.IdeaJol.toolwindow.JolView;
 import com.intellij.codeInspection.LocalQuickFix;
 import com.intellij.codeInspection.ProblemDescriptor;
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 
 public class ShowJolQuickFix implements LocalQuickFix {
-    private static final Logger LOG = Logger.getInstance("#com.github.stokito.IdeaJol.inspection.ShowJolQuickFix");
-
     @NotNull
     @Override
     public String getFamilyName() {
