@@ -10,11 +10,10 @@ import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import com.intellij.ui.components.fields.IntegerField;
 import com.intellij.util.ui.FormBuilder;
-import com.siyeh.ig.ui.UiUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.uast.UClass;
-import org.openjdk.jol.datamodel.X86_64_COOPS_DataModel;
+import org.openjdk.jol.datamodel.Model64_COOPS_CCPS;
 import org.openjdk.jol.info.ClassData;
 import org.openjdk.jol.info.ClassLayout;
 import org.openjdk.jol.layouters.Layouter;
@@ -22,9 +21,9 @@ import org.openjdk.jol.layouters.Layouter;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 import static com.github.stokito.IdeaJol.Layouters.LAYOUTERS;
+import static com.github.stokito.IdeaJol.Layouters.LAYOUTERS_NAMES;
 import static com.intellij.codeInspection.ProblemHighlightType.WEAK_WARNING;
 import static com.siyeh.ig.ui.UiUtils.createAddRemovePanel;
 import static java.util.Arrays.asList;
@@ -46,8 +45,8 @@ public class JolInspection extends AbstractBaseUastLocalInspectionTool {
     ));
 
     /**
-     * Default 5 is Hotspot COOPS
-     * @see X86_64_COOPS_DataModel
+     * Default 5 is Hotspot 64 bit COOPS CCPS
+     * @see Model64_COOPS_CCPS
      */
     @SuppressWarnings("WeakerAccess")
     public int selectedLayouter = 5;
@@ -144,8 +143,7 @@ public class JolInspection extends AbstractBaseUastLocalInspectionTool {
         sizeThresholdEditor.setColumns(4);
         sizeThresholdEditor.setToolTipText("Class memory size threshold (CPU cache line is 64)");
 
-        String[] layouterNames = Stream.of(LAYOUTERS).map(Object::toString).toArray(String[]::new);
-        ComboBox<String> layouterComboBox = new ComboBox<>(layouterNames);
+        ComboBox<String> layouterComboBox = new ComboBox<>(LAYOUTERS_NAMES);
         layouterComboBox.setSelectedIndex(selectedLayouter);
         layouterComboBox.addActionListener(e -> selectedLayouter = layouterComboBox.getSelectedIndex());
         layouterComboBox.setToolTipText("Almost everywhere used HotSpot 64x COOPS. Raw layouter shows size of the fields themselves");

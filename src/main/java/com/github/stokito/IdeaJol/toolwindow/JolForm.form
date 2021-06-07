@@ -58,13 +58,19 @@
               <maximumSize width="250" height="26"/>
               <minimumSize width="250" height="26"/>
               <model>
-                <item value="Raw 32-bit VM"/>
-                <item value="Raw 64-bit VM"/>
-                <item value="Raw 64-bit VM, COOPS"/>
-                <item value="HotSpot 32-bit VM, 8-byte align"/>
-                <item value="HotSpot 64-bit VM, 8-byte align"/>
-                <item value="HotSpot 64-bit VM, COOPS, 8-byte align"/>
-                <item value="HotSpot 64-bit VM, COOPS, 16-byte align"/>
+                <item value="Raw 32-bit"/>
+                <item value="Raw 64-bit"/>
+                <item value="Raw 64-bit, COOPS, CCPS"/>
+                <item value="HotSpot 32-bit"/>
+                <item value="HotSpot 64-bit"/>
+                <item value="HotSpot 64-bit, COOPS, CCPS"/>
+                <item value="HotSpot 64-bit, COOPS, CCPS, 16-byte align"/>
+                <item value="HotSpot JDK 15, 32-bit"/>
+                <item value="HotSpot JDK 15, 64-bit"/>
+                <item value="HotSpot JDK 15, 64-bit, COOPS, CCPS"/>
+                <item value="HotSpot JDK 15, 64-bit, COOPS, CCPS, 16-byte align"/>
+                <item value="HotSpot JDK 15, 64-bit, CCPS"/>
+                <item value="HotSpot JDK 15, 64-bit, CCPS, 16-byte align"/>
               </model>
               <preferredSize width="250" height="26"/>
               <selectedIndex value="4"/>

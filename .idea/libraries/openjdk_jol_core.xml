@@ -1,12 +1,12 @@
 <component name="libraryTable">
   <library name="openjdk.jol.core" type="repository">
-    <properties maven-id="org.openjdk.jol:jol-core:0.14" />
+    <properties maven-id="org.openjdk.jol:jol-core:0.16" />
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/openjdk/jol/jol-core/0.14/jol-core-0.14.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/openjdk/jol/jol-core/0.16/jol-core-0.16.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/openjdk/jol/jol-core/0.14/jol-core-0.14-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/openjdk/jol/jol-core/0.16/jol-core-0.16-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
