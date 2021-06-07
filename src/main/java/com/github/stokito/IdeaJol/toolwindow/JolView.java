@@ -80,7 +80,7 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
     }
 
     @NotNull
-    private Layouter getSelectedLayoter() {
+    private Layouter getSelectedLayouter() {
         int layouterIndex = jolForm.cmbDataModel.getSelectedIndex();
         return LAYOUTERS[layouterIndex];
     }
@@ -238,7 +238,7 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
     }
 
     private ClassLayout calcClassLayout(@NotNull PsiClass psiClass) {
-        Layouter layouter = getSelectedLayoter();
+        Layouter layouter = getSelectedLayouter();
         ClassData classData = PsiClassAdapter.createClassDataFromPsiClass(psiClass);
         return layouter.layout(classData);
     }
