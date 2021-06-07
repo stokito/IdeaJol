@@ -38,11 +38,11 @@ public class JolInspection extends AbstractBaseUastLocalInspectionTool {
      * Suffixes of ignored business logic classes
      */
     @SuppressWarnings("WeakerAccess")
-    public List<String> businessLogicClassSuffixes = asList(
+    public List<String> businessLogicClassSuffixes = new ArrayList<>(asList(
             "Exception", "Test", "Spec", "Impl", "Dao", "Utils",
             "Controller", "Service", "Strategy", "Servlet", "Adapter", "Factory", "Provider",
             "Handler", "Registry", "Filter", "Interceptor", "Executor"
-    );
+    ));
 
     /**
      * Default 5 is Hotspot COOPS
