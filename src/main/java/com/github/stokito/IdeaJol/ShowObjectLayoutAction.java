@@ -7,8 +7,12 @@ import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.pom.Navigatable;
 import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.uast.UClass;
+import org.jetbrains.uast.UElement;
+import org.jetbrains.uast.UastContextKt;
 
 import static com.intellij.openapi.actionSystem.CommonDataKeys.NAVIGATABLE;
 
@@ -18,7 +22,7 @@ public class ShowObjectLayoutAction extends AnAction {
     @Override
     public void update(@NotNull AnActionEvent event) {
         PsiClass selectedPsiClass = getSelectedPsiClass(event);
-        event.getPresentation().setEnabled(selectedPsiClass != null);
+        event.getPresentation().setEnabledAndVisible(selectedPsiClass != null);
     }
 
     @Override
@@ -37,7 +41,19 @@ public class ShowObjectLayoutAction extends AnAction {
     private PsiClass getSelectedPsiClass(AnActionEvent event) {
         Project project = event.getProject();
         Navigatable navigatable = event.getData(NAVIGATABLE);
-        return project != null && navigatable instanceof PsiClass ? (PsiClass) navigatable : null;
+        if (project == null || !(navigatable instanceof PsiElement)) {
+            return null;
+        }
+        // Plain Java class
+        if (navigatable instanceof PsiClass) {
+            return (PsiClass) navigatable;
+        }
+        // Kotlin classes
+        UElement element = UastContextKt.toUElement((PsiElement) navigatable);
+        if (element instanceof UClass) {
+            return ((UClass)element);
+        }
+        return null;
     }
 
 }
