@@ -22,6 +22,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.github.stokito.IdeaJol.Layouters.DEFAULT_LAYOUTER_INDEX;
 import static com.github.stokito.IdeaJol.Layouters.LAYOUTERS;
 import static com.github.stokito.IdeaJol.Layouters.LAYOUTERS_NAMES;
 import static com.intellij.codeInspection.ProblemHighlightType.WEAK_WARNING;
@@ -49,7 +50,7 @@ public class JolInspection extends AbstractBaseUastLocalInspectionTool {
      * @see Model64_COOPS_CCPS
      */
     @SuppressWarnings("WeakerAccess")
-    public int selectedLayouter = 5;
+    public int selectedLayouter = DEFAULT_LAYOUTER_INDEX;
 
     /**
      * Class memory size threshold (CPU cache line is 64)

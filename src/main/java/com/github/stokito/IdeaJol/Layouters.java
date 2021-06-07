@@ -48,4 +48,9 @@ public class Layouters {
             "HotSpot JDK 15, 64-bit, CCPS",
             "HotSpot JDK 15, 64-bit, CCPS, 16-byte align"
     };
+
+    /**
+     * Default 5 is Hotspot 64 bit COOPS CCPS
+     */
+    public static final int DEFAULT_LAYOUTER_INDEX = 5;
 }

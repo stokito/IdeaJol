@@ -21,6 +21,7 @@ import org.openjdk.jol.info.ClassLayout;
 import org.openjdk.jol.info.FieldLayout;
 import org.openjdk.jol.layouters.Layouter;
 
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
@@ -33,7 +34,9 @@ import java.awt.font.TextAttribute;
 import java.util.ArrayList;
 import java.util.Map;
 
+import static com.github.stokito.IdeaJol.Layouters.DEFAULT_LAYOUTER_INDEX;
 import static com.github.stokito.IdeaJol.Layouters.LAYOUTERS;
+import static com.github.stokito.IdeaJol.Layouters.LAYOUTERS_NAMES;
 import static com.intellij.ui.JBColor.RED;
 import static java.awt.font.TextAttribute.STRIKETHROUGH;
 import static java.lang.Boolean.FALSE;
@@ -59,6 +62,9 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
         jolForm.tblObjectLayout.getSelectionModel().addListSelectionListener(this::navigateToFieldInEditor);
         jolForm.lblClassName.addMouseListener(navigateToClassInEditor());
         jolForm.copyButton.addActionListener(this::copyObjectLayoutToClipboard);
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(LAYOUTERS_NAMES);
+        jolForm.cmbDataModel.setModel(model);
+        jolForm.cmbDataModel.setSelectedIndex(DEFAULT_LAYOUTER_INDEX);
         jolForm.cmbDataModel.addActionListener(this::layoutOptionsActionPerformed);
         setContent(jolForm.rootPanel);
     }
