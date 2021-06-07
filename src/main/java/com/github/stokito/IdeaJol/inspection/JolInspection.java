@@ -26,6 +26,7 @@ import java.util.stream.Stream;
 
 import static com.github.stokito.IdeaJol.Layouters.LAYOUTERS;
 import static com.intellij.codeInspection.ProblemHighlightType.WEAK_WARNING;
+import static com.siyeh.ig.ui.UiUtils.createAddRemovePanel;
 import static java.util.Arrays.asList;
 import static org.jetbrains.uast.UElementKt.getSourcePsiElement;
 
@@ -144,18 +145,17 @@ public class JolInspection extends AbstractBaseUastLocalInspectionTool {
         sizeThresholdEditor.setToolTipText("Class memory size threshold (CPU cache line is 64)");
 
         String[] layouterNames = Stream.of(LAYOUTERS).map(Object::toString).toArray(String[]::new);
-        final ComboBox<String> layouterComboBox = new ComboBox<>(layouterNames);
+        ComboBox<String> layouterComboBox = new ComboBox<>(layouterNames);
         layouterComboBox.setSelectedIndex(selectedLayouter);
         layouterComboBox.addActionListener(e -> selectedLayouter = layouterComboBox.getSelectedIndex());
         layouterComboBox.setToolTipText("Almost everywhere used HotSpot 64x COOPS. Raw layouter shows size of the fields themselves");
 
-        final ListTable businessLogicClassSuffixesTable = new ListTable(new ListWrappingTableModel(businessLogicClassSuffixes, "Suffixes of ignored business logic classes"));
-        final JPanel businessLogicClassSuffixesTablePanel = UiUtils.createAddRemovePanel(businessLogicClassSuffixesTable);
+        ListTable ignoredSuffixesTable = new ListTable(new ListWrappingTableModel(businessLogicClassSuffixes, "Suffix"));
 
         return new FormBuilder()
-                .addLabeledComponent("Memory size threshold", sizeThresholdEditor)
-                .addLabeledComponent("Layouter", layouterComboBox)
-                .addComponentFillVertically(businessLogicClassSuffixesTablePanel, 0)
+                .addLabeledComponent("Size threshold", sizeThresholdEditor)
+                .addLabeledComponent("VM Layout", layouterComboBox)
+                .addLabeledComponentFillVertically("Suffixes of ignored business logic classes", createAddRemovePanel(ignoredSuffixesTable))
                 .getPanel();
     }
 }
