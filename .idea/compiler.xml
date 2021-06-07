@@ -20,11 +20,5 @@
         <outputRelativeToContentRoot value="true" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="jol-cli" target="1.7" />
-      <module name="jol-core" target="1.7" />
-      <module name="jol-parent" target="1.7" />
-      <module name="jol-samples" target="1.7" />
-    </bytecodeTargetLevel>
   </component>
 </project>
