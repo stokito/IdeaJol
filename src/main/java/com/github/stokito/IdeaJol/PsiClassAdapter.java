@@ -16,7 +16,7 @@ public class PsiClassAdapter {
     public static ClassData createClassDataFromPsiClass(@NotNull PsiClass psiClass) {
         assert psiClass.getQualifiedName() != null : "The class doesn't have a qualified name: " + psiClass;
         ClassData classData = new ClassData(psiClass.getQualifiedName());
-        if (psiClass.getSuperClass() != null) {
+        if (psiClass.getSuperClass() != null && !psiClass.equals(psiClass.getSuperClass())) {
             ClassData supperClassData = createClassDataFromPsiClass(psiClass.getSuperClass());
             classData.addSuperClassData(supperClassData);
         }
