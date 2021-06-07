@@ -20,6 +20,7 @@
     </description>
     <change-notes><![CDATA[
       <ul>
+      <li>v1.10.0 Update JOL to v0.16 and support new layouts</li>
       <li>v1.9.1 Fix bugs, avoid deprecated API</li>
       <li>v1.9.0 Update JOL to v0.14 and minor changes</li>
       <li>v1.8.0 Workaround for annoying NPE #20</li>
@@ -31,7 +32,7 @@
       <ul>
     ]]>
     </change-notes>
-    <version>1.9.1</version>
+    <version>1.10.0</version>
     <vendor email="stokito@gmail.com" url="https://stokito.com/">Sergey Ponomarev</vendor>
     <depends>com.intellij.modules.lang</depends>
     <depends>com.intellij.modules.java</depends>
