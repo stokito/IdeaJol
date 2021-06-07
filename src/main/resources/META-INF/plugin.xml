@@ -7,7 +7,7 @@
     <description>
         <![CDATA[
         <p>
-        <a href="https://openjdk.java.net/projects/code-tools/jol/">Java Object Layout (JOL)</a> is the tiny toolbox to analyze in memory object layout schemes in JVMs.
+        <a href="https://github.com/openjdk/jol">Java Object Layout (JOL)</a> is a tool to analyze in memory object layout schemes in JVMs.
         It allows you to make an estimate how much memory the object takes. This allows to make a simplest but most efficient performance improvements.
         Just check your DTOs if they fit into 64 bytes of processor's cache line.
         </p>
