@@ -1,7 +1,9 @@
 # Java Object Layout (JOL) plugin for IntelliJ Idea
 
+<!-- Plugin description -->
 [JOL](https://github.com/openjdk/jol/) (Java Object Layout) is the tool to analyze object layout schemes in JVMs.
 For example, in HotSpot VM on 64x processor an empty string takes 40 bytes i.e. 24 bytes for String object itself + 16 bytes for an internal empty char array.
+<!-- Plugin description end -->
 
 The plugin is a GUI for JOL and allows you to make an estimate how much memory the object takes.
 
