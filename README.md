@@ -47,8 +47,17 @@ So you can see the full size including inner objects.
 
 **NOTE:** Your app most likely will use the HotSpot with `64-bit VM, compressed references` mode. 
 
-## Install the plugin
-Open File / Settings / Plugins  then type `JOL` in search input and press `Browse in repositories` button.
+## Installation
+
+- Using IDE built-in plugin system:
+
+  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "JOL"</kbd> >
+  <kbd>Install Plugin</kbd>
+
+- Manually:
+
+  Download the [latest release](https://github.com/stokito/IdeaJol/releases/latest) and install it manually using
+  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
 
 ### Inspection
@@ -64,3 +73,9 @@ Heap dump `*.hprof` files analysers:
  * Eclipse [Memory Analyzer (MAT)](https://www.eclipse.org/mat/)
  * [VisualVM](https://visualvm.github.io/) can also monitor heap in real time. Based on NetBeans
  * [Java Mission Control](https://github.com/openjdk/jmc)
+
+
+---
+Plugin based on the [IntelliJ Platform Plugin Template][template].
+
+[template]: https://github.com/JetBrains/intellij-platform-plugin-template

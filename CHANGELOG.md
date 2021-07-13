@@ -1,6 +1,6 @@
 <!-- Keep a Changelog guide -> https://keepachangelog.com -->
 
-# Changelog
+# JOL Plugin Changelog
 
 ## [Unreleased]
 ## [1.10.0]
