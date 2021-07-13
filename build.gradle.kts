@@ -13,9 +13,12 @@ plugins {
 group = properties("pluginGroup")
 version = properties("pluginVersion")
 
-// Configure project's dependencies
 repositories {
     mavenCentral()
+}
+
+dependencies {
+    implementation("org.openjdk.jol:jol-core:0.16")
 }
 
 // Configure gradle-intellij-plugin plugin.
