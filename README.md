@@ -58,6 +58,7 @@ Please rank the [Plugin](https://plugins.jetbrains.com/plugin/10953-java-object-
 ## Related projects
 
 Heap dump `*.hprof` files analysers:
+ * [The Lightweight Java Visualizer (LJV)](https://github.com/atp-mipt/ljv) a tool for visualizing Java data structures 
  * The IntelliJ IDEA has a built-in [heap dump analyser](https://www.jetbrains.com/help/idea/analyze-hprof-memory-snapshots.html#read-snapshot)
  * Eclipse [Memory Analyzer (MAT)](https://www.eclipse.org/mat/)
  * [VisualVM](https://visualvm.github.io/) can also monitor heap in real time. Based on NetBeans
