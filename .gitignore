@@ -1,10 +1,16 @@
-.idea/shelf
-.idea/workspace.xml
-.idea/usage.statistics.xml
-.idea/tasks.xml
-#.idea/libraries
-.idea/modules.xml
-.idea/misc.xml
-sandbox
+
+# Gradle
+.gradle
+build
+
+# IDEA
+.idea
+*.iml
 out
-IdeaJol.zip
+
+# Platform-specific
+# MacOS
+.DS_Store
+
+# Custom development files
+/sandbox
