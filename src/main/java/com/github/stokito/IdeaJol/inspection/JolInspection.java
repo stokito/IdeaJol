@@ -13,7 +13,7 @@ import com.intellij.util.ui.FormBuilder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.uast.UClass;
-import org.openjdk.jol.datamodel.Model64_COOPS_CCPS;
+import org.openjdk.jol.datamodel.Model64;
 import org.openjdk.jol.info.ClassData;
 import org.openjdk.jol.info.ClassLayout;
 import org.openjdk.jol.layouters.Layouter;
