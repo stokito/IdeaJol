@@ -4,19 +4,20 @@ import com.intellij.ui.components.JBScrollPane;
 import com.intellij.ui.table.JBTable;
 
 import javax.swing.*;
-import java.awt.*;
 
 class JolForm {
     JComponent rootPanel;
-    JLabel lblInstanceSize;
-    JLabel lblClassName;
     JPanel pnlToolbar;
+    JLabel lblClassName;
+    JButton copyButton;
+    JPanel pnlLayouter;
     JComboBox<String> cmbDataModel;
-    JBTable tblObjectLayout;
     JPanel pnlInstanceSize;
+    JLabel lblInstanceSize;
     JLabel lblLossesInternal;
     JLabel lblLossesExternal;
     JLabel lblLossesTotal;
+    JPanel pnlObjectLayout;
     JBScrollPane objectLayoutScrollPane;
-    JButton copyButton;
+    JBTable tblObjectLayout;
 }
