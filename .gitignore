@@ -10,6 +10,9 @@ out
 IdeaJol.zip
 # Gradle
 .gradle
+gradle
+gradlew
+gradlew.bat
 build
 # Platform-specific
 # MacOS
