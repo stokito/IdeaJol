@@ -24,16 +24,14 @@ public class Layouters {
             new RawLayouter(MODEL_64_COOPS),
             new HotSpotLayouter(MODEL_32, 8),
             new HotSpotLayouter(MODEL_64, 8),
-            new HotSpotLayouter(MODEL_64_COOPS, 8),
-            new HotSpotLayouter(MODEL_64_COOPS_16, 8),
-//            new HotSpotLayouter(MODEL_64_COOPS_CCPS, 8),
-//            new HotSpotLayouter(MODEL_64_COOPS_CCPS_16, 8),
+            new HotSpotLayouter(MODEL_64_COOPS_CCPS, 8),
+            new HotSpotLayouter(MODEL_64_COOPS_CCPS_16, 8),
             // JDK 15 uses a new layout
             new HotSpotLayouter(MODEL_32, 15),
             new HotSpotLayouter(MODEL_64, 15),
-            new HotSpotLayouter(MODEL_64_COOPS, 15),
-            new HotSpotLayouter(MODEL_64_COOPS_16, 15),
-            // CCPS
+            new HotSpotLayouter(MODEL_64_COOPS_CCPS, 15),
+            new HotSpotLayouter(MODEL_64_COOPS_CCPS_16, 15),
+            // CCPS only
             new HotSpotLayouter(MODEL_64_CCPS, 15),
             new HotSpotLayouter(MODEL_64_CCPS_16, 15),
     };
@@ -44,14 +42,16 @@ public class Layouters {
             "Raw 64-bit, COOPS",
             "HotSpot 32-bit",
             "HotSpot 64-bit",
-            "HotSpot JDK >= 8 64-bit, COOPS, CCPS",
-            "HotSpot JDK >= 8 64-bit, COOPS, CCPS, 16-byte align",
-            "HotSpot JDK >= 15, 32-bit",
-            "HotSpot JDK >= 15, 64-bit",
-            "HotSpot JDK >= 15, 64-bit, COOPS, CCPS",
-            "HotSpot JDK >= 15, 64-bit, COOPS, CCPS, 16-byte align",
-//            "HotSpot JDK 15, 64-bit, CCPS",
-//            "HotSpot JDK 15, 64-bit, CCPS, 16-byte align"
+            "HotSpot >= 8 64-bit, COOPS, CCPS",
+            "HotSpot >= 8 64-bit, COOPS, CCPS, 16-byte align",
+            // JDK 15 uses a new layout
+            "HotSpot >= 15, 32-bit",
+            "HotSpot >= 15, 64-bit",
+            "HotSpot >= 15, 64-bit, COOPS, CCPS",
+            "HotSpot >= 15, 64-bit, COOPS, CCPS, 16-byte align",
+            // CCPS only
+            "HotSpot >= 15, 64-bit, CCPS",
+            "HotSpot >= 15, 64-bit, CCPS, 16-byte align"
     };
 
     /**
