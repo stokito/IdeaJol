@@ -8,7 +8,7 @@
         <![CDATA[
         <p>
         <a href="https://github.com/openjdk/jol">Java Object Layout (JOL)</a> is a tool to analyze in memory object layout schemes in JVMs.
-        It allows you to make an estimate how much memory the object takes. This allows to make a simplest but most efficient performance improvements.
+        It allows you to make an estimate how much memory the object takes. This allows to make the simplest but most efficient performance improvements.
         Just check your DTOs if they fit into 64 bytes of processor's cache line.
         </p>
         <p>For example, in HotSpot VM on 64x processor an empty string "" takes 40 bytes i.e. 24 bytes for String object itself + 16 bytes for an internal empty char array.
@@ -20,7 +20,8 @@
     </description>
     <change-notes><![CDATA[
       <ul>
-      <li>v1.11.0 Update JOL to v0.17 with support of new Liliput layouts. Change in UI</li>
+      <li>v1.11.1 Fix UI and #38</li>
+      <li>v1.11.0 Update JOL to v0.17 with support of new Lilliput layouts. Change in UI</li>
       <li>v1.10.0 Update JOL to v0.16 and support new layouts</li>
       <li>v1.9.1 Fix bugs, avoid deprecated API</li>
       <li>v1.9.0 Update JOL to v0.14 and minor changes</li>

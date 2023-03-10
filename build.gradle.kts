@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.github.stokito.IdeaJol"
-version = "1.12.0-SNAPSHOT"
+version = "1.11.1"
 
 repositories {
     mavenCentral()
@@ -29,7 +29,7 @@ tasks {
 
     patchPluginXml {
         sinceBuild.set("223")
-//        untilBuild.set("231.*")
+        untilBuild.set("231.*")
     }
 //    runPluginVerifier {
 //        ideVersions.set(properties("pluginVerifierIdeVersions").split(',').map(String::trim).filter(String::isNotEmpty))
