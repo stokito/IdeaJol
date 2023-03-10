@@ -2,6 +2,7 @@ package com.github.stokito.IdeaJol;
 
 import org.openjdk.jol.datamodel.Model32;
 import org.openjdk.jol.datamodel.Model64;
+import org.openjdk.jol.datamodel.Model64_Lilliput;
 import org.openjdk.jol.layouters.HotSpotLayouter;
 import org.openjdk.jol.layouters.Layouter;
 import org.openjdk.jol.layouters.RawLayouter;
@@ -17,6 +18,10 @@ public class Layouters {
     public static final Model64 MODEL_64_CCPS = new Model64(false, true, 8);
     /** compressed class pointers with 16 bit offset */
     public static final Model64 MODEL_64_CCPS_16 = new Model64(false, true, 16);
+
+    public static final Model64_Lilliput MODEL_64_LILIPUT = new Model64_Lilliput(false, 8, true);
+    public static final Model64_Lilliput MODEL_64_LILIPUT_COOPS = new Model64_Lilliput(true, 8, true);
+    public static final Model64_Lilliput MODEL_64_LILIPUT_COOPS_16 = new Model64_Lilliput(true, 16, true);
 
     public static final Layouter[] LAYOUTERS = {
             new RawLayouter(MODEL_32),
@@ -34,6 +39,10 @@ public class Layouters {
             // CCPS only
             new HotSpotLayouter(MODEL_64_CCPS, 15),
             new HotSpotLayouter(MODEL_64_CCPS_16, 15),
+            // Lilliput
+            new HotSpotLayouter(MODEL_64_LILIPUT, 15),
+            new HotSpotLayouter(MODEL_64_LILIPUT_COOPS, 15),
+            new HotSpotLayouter(MODEL_64_LILIPUT_COOPS_16, 15),
     };
 
     public static final String[] LAYOUTERS_NAMES = {
@@ -51,7 +60,11 @@ public class Layouters {
             "HotSpot >= 15, 64-bit, COOPS, CCPS, 16-byte align",
             // CCPS only
             "HotSpot >= 15, 64-bit, CCPS",
-            "HotSpot >= 15, 64-bit, CCPS, 16-byte align"
+            "HotSpot >= 15, 64-bit, CCPS, 16-byte align",
+            // Lilliput
+            "HotSpot Lilliput, 64-bit",
+            "HotSpot Lilliput, 64-bit, COOPS",
+            "HotSpot Lilliput, 64-bit, COOPS, 16-byte align"
     };
 
     /**
