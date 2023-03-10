@@ -41,17 +41,17 @@ public class Layouters {
     public static final String[] LAYOUTERS_NAMES = {
             "Raw 32-bit",
             "Raw 64-bit",
-            "Raw 64-bit, COOPS, CCPS",
+            "Raw 64-bit, COOPS",
             "HotSpot 32-bit",
             "HotSpot 64-bit",
-            "HotSpot 64-bit, COOPS, CCPS",
-            "HotSpot 64-bit, COOPS, CCPS, 16-byte align",
-            "HotSpot JDK 15, 32-bit",
-            "HotSpot JDK 15, 64-bit",
-            "HotSpot JDK 15, 64-bit, COOPS, CCPS",
-            "HotSpot JDK 15, 64-bit, COOPS, CCPS, 16-byte align",
-            "HotSpot JDK 15, 64-bit, CCPS",
-            "HotSpot JDK 15, 64-bit, CCPS, 16-byte align"
+            "HotSpot JDK >= 8 64-bit, COOPS, CCPS",
+            "HotSpot JDK >= 8 64-bit, COOPS, CCPS, 16-byte align",
+            "HotSpot JDK >= 15, 32-bit",
+            "HotSpot JDK >= 15, 64-bit",
+            "HotSpot JDK >= 15, 64-bit, COOPS, CCPS",
+            "HotSpot JDK >= 15, 64-bit, COOPS, CCPS, 16-byte align",
+//            "HotSpot JDK 15, 64-bit, CCPS",
+//            "HotSpot JDK 15, 64-bit, CCPS, 16-byte align"
     };
 
     /**
