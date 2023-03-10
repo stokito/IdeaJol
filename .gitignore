@@ -8,3 +8,10 @@
 sandbox
 out
 IdeaJol.zip
+# Gradle
+.gradle
+build
+# Platform-specific
+# MacOS
+.DS_Store
+# Custom development files
