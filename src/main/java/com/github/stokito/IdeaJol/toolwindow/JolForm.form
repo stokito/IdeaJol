@@ -48,7 +48,7 @@
               <enabled value="false"/>
               <icon value="actions/copy.png"/>
               <inheritsPopupMenu value="true"/>
-              <maximumSize width="24" height="24"/>
+              <maximumSize width="48" height="48"/>
               <minimumSize width="24" height="24"/>
               <text value=""/>
               <toolTipText value="Copy Object Layout to clipboard"/>
@@ -59,9 +59,8 @@
               <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <maximumSize width="250" height="26"/>
-              <minimumSize width="250" height="26"/>
-              <preferredSize width="250" height="26"/>
+              <minimumSize width="200" height="24"/>
+              <preferredSize width="250" height="48"/>
             </properties>
           </component>
         </children>
