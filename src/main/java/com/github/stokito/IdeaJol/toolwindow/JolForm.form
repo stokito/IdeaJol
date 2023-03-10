@@ -12,8 +12,8 @@
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="1" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="-1" height="48"/>
-            <maximum-size width="-1" height="48"/>
+            <preferred-size width="-1" height="60"/>
+            <maximum-size width="-1" height="60"/>
           </grid>
         </constraints>
         <properties/>
@@ -39,17 +39,16 @@
           <component id="ee23d" class="javax.swing.JButton" binding="copyButton" default-binding="true">
             <constraints>
               <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="7" hsize-policy="0" anchor="4" fill="2" indent="0" use-parent-layout="false">
-                <minimum-size width="32" height="32"/>
-                <preferred-size width="48" height="48"/>
+                <minimum-size width="150" height="-1"/>
+                <preferred-size width="200" height="-1"/>
               </grid>
             </constraints>
             <properties>
               <enabled value="false"/>
-              <icon value="actions/copy.png"/>
-              <inheritsPopupMenu value="true"/>
+              <horizontalTextPosition value="0"/>
               <maximumSize width="48" height="48"/>
               <minimumSize width="24" height="24"/>
-              <text value=""/>
+              <text value="Copy"/>
               <toolTipText value="Copy Object Layout to clipboard"/>
             </properties>
           </component>
@@ -165,16 +164,17 @@
       <grid id="f6fc5" binding="pnlLayouter" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="2" hsize-policy="7" anchor="1" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="-1" height="80"/>
+            <preferred-size width="-1" height="80"/>
+          </grid>
         </constraints>
         <properties/>
         <border type="none"/>
         <children>
           <component id="c860c" class="javax.swing.JComboBox" binding="cmbDataModel">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="1" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="-1" height="48"/>
-              </grid>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <minimumSize width="200" height="24"/>
