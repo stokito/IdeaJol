@@ -263,7 +263,7 @@ public class JolView extends SimpleToolWindowPanel implements Disposable {
                 }
             }
         } catch (Exception ex) {
-            LOG.error("Unable to generate layout", ex);
+            LOG.warn("Unable to generate layout", ex);
         }
     }
 }
