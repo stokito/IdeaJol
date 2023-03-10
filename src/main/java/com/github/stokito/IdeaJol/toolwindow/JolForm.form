@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="rootPanel" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="640" height="400"/>
+      <xy x="20" y="20" width="909" height="876"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -16,8 +16,7 @@
             <maximum-size width="-1" height="48"/>
           </grid>
         </constraints>
-        <properties>
-        </properties>
+        <properties/>
         <border type="none"/>
         <children>
           <component id="d5daa" class="javax.swing.JLabel" binding="lblClassName">
@@ -65,15 +64,14 @@
           </component>
         </children>
       </grid>
-      <grid id="817c2" binding="pnlInstanceSize" layout-manager="GridLayoutManager" row-count="1" column-count="9" same-size-horizontally="false" same-size-vertically="false" hgap="5" vgap="-1">
+      <grid id="817c2" binding="pnlInstanceSize" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="5" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false">
-            <maximum-size width="-1" height="30"/>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="-1" height="240"/>
           </grid>
         </constraints>
-        <properties>
-        </properties>
+        <properties/>
         <border type="none"/>
         <children>
           <component id="8a329" class="javax.swing.JLabel">
@@ -84,11 +82,6 @@
               <text value="Instance size"/>
             </properties>
           </component>
-          <hspacer id="683c3">
-            <constraints>
-              <grid row="0" column="8" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-          </hspacer>
           <component id="eb27e" class="javax.swing.JLabel" binding="lblInstanceSize">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -99,7 +92,7 @@
           </component>
           <component id="e5005" class="javax.swing.JLabel">
             <constraints>
-              <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="Losses internal"/>
@@ -107,7 +100,7 @@
           </component>
           <component id="6ff6f" class="javax.swing.JLabel" binding="lblLossesInternal">
             <constraints>
-              <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="0"/>
@@ -115,7 +108,7 @@
           </component>
           <component id="1ee16" class="javax.swing.JLabel">
             <constraints>
-              <grid row="0" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="Losses external"/>
@@ -123,7 +116,7 @@
           </component>
           <component id="b1f58" class="javax.swing.JLabel" binding="lblLossesExternal">
             <constraints>
-              <grid row="0" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="0"/>
@@ -131,7 +124,7 @@
           </component>
           <component id="c3c25" class="javax.swing.JLabel">
             <constraints>
-              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="Losses total"/>
@@ -139,7 +132,7 @@
           </component>
           <component id="b151b" class="javax.swing.JLabel" binding="lblLossesTotal">
             <constraints>
-              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="0"/>
@@ -152,8 +145,7 @@
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties>
-        </properties>
+        <properties/>
         <border type="none"/>
         <children>
           <scrollpane id="a4c1e" class="com.intellij.ui.components.JBScrollPane" binding="objectLayoutScrollPane">
