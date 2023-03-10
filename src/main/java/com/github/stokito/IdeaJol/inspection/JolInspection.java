@@ -47,17 +47,17 @@ public class JolInspection extends AbstractBaseUastLocalInspectionTool {
 
     /**
      * Default 5 is Hotspot 64 bit COOPS CCPS
-     * @see Model64_COOPS_CCPS
+     * @see com.github.stokito.IdeaJol.Layouters#MODEL_64_COOPS_CCPS
      */
     @SuppressWarnings("WeakerAccess")
     public int selectedLayouter = DEFAULT_LAYOUTER_INDEX;
 
     /**
-     * Class memory size threshold (CPU cache line is 64)
-     * Default 64 is a one cache line
+     * Class memory size threshold.
+     * Default 4*64=256 e.g. four CPU cache lines to not annoying a user
      */
     @SuppressWarnings("WeakerAccess")
-    public int sizeThreshold = 64;
+    public int sizeThreshold = 256;
 
     @Nullable
     @Override
