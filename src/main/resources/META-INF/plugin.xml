@@ -20,6 +20,7 @@
     </description>
     <change-notes><![CDATA[
       <ul>
+      <li>v1.12.0 Remove deprecated API</li>
       <li>v1.11.1 Fix UI and #38</li>
       <li>v1.11.0 Update JOL to v0.17 with support of new Lilliput layouts. Change in UI</li>
       <li>v1.10.0 Update JOL to v0.16 and support new layouts</li>
@@ -34,7 +35,7 @@
       <ul>
     ]]>
     </change-notes>
-    <version>1.11.0</version>
+    <version>1.12.0</version>
     <vendor email="stokito@gmail.com" url="https://stokito.com/">Sergey Ponomarev</vendor>
     <depends>com.intellij.modules.lang</depends>
     <depends>com.intellij.modules.java</depends>
