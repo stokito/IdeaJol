@@ -34,7 +34,7 @@
       <ul>
     ]]>
     </change-notes>
-    <version>1.11.0</version>
+    <version>1.11.2</version>
     <vendor email="stokito@gmail.com" url="https://stokito.com/">Sergey Ponomarev</vendor>
     <depends>com.intellij.modules.lang</depends>
     <depends>com.intellij.modules.java</depends>
