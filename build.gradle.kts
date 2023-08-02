@@ -1,6 +1,6 @@
 plugins {
     id("java")
-    id("org.jetbrains.intellij") version "1.13.2"
+    id("org.jetbrains.intellij") version "1.15.0"
 }
 
 group = "com.github.stokito.IdeaJol"
@@ -29,7 +29,7 @@ tasks {
 
     patchPluginXml {
         sinceBuild.set("223")
-        untilBuild.set("231.*")
+        untilBuild.set("")
     }
 //    runPluginVerifier {
 //        ideVersions.set(properties("pluginVerifierIdeVersions").split(',').map(String::trim).filter(String::isNotEmpty))
