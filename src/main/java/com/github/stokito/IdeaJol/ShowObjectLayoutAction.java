@@ -1,6 +1,7 @@
 package com.github.stokito.IdeaJol;
 
 import com.github.stokito.IdeaJol.toolwindow.JolView;
+import com.intellij.openapi.actionSystem.ActionUpdateThread;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.diagnostic.Logger;
@@ -23,6 +24,11 @@ public class ShowObjectLayoutAction extends AnAction {
     public void update(@NotNull AnActionEvent event) {
         PsiClass selectedPsiClass = getSelectedPsiClass(event);
         event.getPresentation().setEnabledAndVisible(selectedPsiClass != null);
+    }
+
+    @Override
+    public @NotNull ActionUpdateThread getActionUpdateThread() {
+        return ActionUpdateThread.BGT;
     }
 
     @Override
